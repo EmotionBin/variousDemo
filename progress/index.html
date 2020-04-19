@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>progress demo</title>
+  <script src="./vendor/vue/vue.js"></script>
+  <style>
+    *{
+      margin: 0;
+    }
+    .progress{
+      position: fixed;
+      top: 0;
+      width: 100%;
+      height: 2px;
+      background-color: transparent;
+    }
+    .progress_wrap{
+      width: 100%;
+      height: 100%;
+    }
+    .progress_inner{
+      height: 100%;
+      background-color: #7cb342;
+    }
+  </style>
+</head>
+<body>
+  <h1>顶部进度条</h1>
+  <div class="progress" v-show="isProgressing">
+    <div class="progress_wrap">
+      <div class="progress_inner" :style="{width:getCurProgress}"></div> 
+    </div>
+  </div>
+</body>
+<script type="text/javascript">
+  var progress_el = new Vue({
+    el:'.progress',
+    data:{
+      progressNow:0,
+      progressAll:1,
+      isProgressing:false
+    },
+    mounted(){
+      this.isProgressing = true;
+      let timer = setInterval(() => {
+        this.progressNow += 0.001;
+        console.log(this.progressNow);
+        if(this.progressNow >= this.progressAll) {
+          clearInterval(timer);
+          this.isProgressing = false;
+        }
+      },1);
+    },
+    computed:{
+      getCurProgress(){
+        return this.progressNow / this.progressAll * 100 + '%';
+      }
+    },
+    methods:{
+        
+    }
+  });
+</script>
+</html>

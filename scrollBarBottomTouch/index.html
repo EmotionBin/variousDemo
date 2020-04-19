@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>scrollBarBottomTouch demo</title>
+  <script src="./vendor/vue/vue.js"></script>
+  <style>
+    *{
+      margin: 0;
+      box-sizing: border-box;
+    }
+    .head{
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .scrollBarBottomTouch{
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+    .scroll_demo{
+      width: 200px;
+      height: 600px;
+      margin: 0 auto;
+      background-color: #d1d1d1;
+      box-shadow: 0 0 3px #666;
+    }
+    .scroll_warp{
+      width: 100%;
+      height: 100%;
+      padding: 10px;
+      overflow: auto;
+    }
+    .scroll_item{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      height: 100px;
+      margin-bottom: 10px;
+      background-color: #fd79a8;
+    }
+    .footer{
+      margin-top: 20px;
+      text-align: center;
+    }
+    /* 这里添加全局的滚动条样式 */
+    /* 开始 */
+    *::-webkit-scrollbar-button {
+      display: none;
+    }
+
+    *::-webkit-scrollbar-thumb {
+      border-radius: 5px;
+      display: inline-block;
+      border: 1px solid #E1E8EF;
+      background-color: #888;
+    }
+
+    *::-webkit-scrollbar-track {
+      background-color: #E1E8EF;
+    }
+
+    *::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    /* 结束 */
+    
+  </style>
+</head>
+<body>
+  <div class="scrollBarBottomTouch">
+    <div class="head">
+      <h1>滚动条触底触发事件继续加载数据(可用于实现懒加载或数据部分加载😎)</h1>
+    </div>
+    <div class="scroll_demo">
+      <div class="scroll_warp" ref="scrollDom">
+        <div class="scroll_item" v-for="i in count">
+          {{i}}
+        </div>
+      </div>
+      <div class="footer">
+        <span>总数目:{{count}}</span>
+      </div>
+    </div>
+  </div>
+</body>
+<script type="text/javascript">
+  var scrollBarBottomTouch_el = new Vue({
+    el:'.scrollBarBottomTouch',
+    data:{
+      count:10
+    },
+    mounted() {
+			//在初始化的时候监听鼠标滚轮滚动事件
+			this.$refs.scrollDom.addEventListener('scroll', this.handleScroll);
+		},
+		destroyed () {
+			//在组件销毁的时候取消对鼠标滚轮滚动事件的监听
+			this.$refs.scrollDom.removeEventListener('scroll', this.handleScroll)
+		},
+    computed:{
+      
+    },
+    methods:{
+      //当滚动滚动条的时候触发的事件
+      handleScroll(){
+        const that = this;
+        const scrollDom = this.$refs.scrollDom;
+        //获取滚动可视区域高度
+        const viewHeight = scrollDom.clientHeight;
+        //获取当前滚动位置
+        const curScroll = scrollDom.scrollTop;
+        //获取整个滚动条高度
+        const scrollHeight = scrollDom.scrollHeight;
+        //判断滚动条触底(滚动可视区域高度 + 当前滚动位置 === 整个滚动高度)
+        if(viewHeight + curScroll === scrollHeight){
+          console.log('滚动条触底');
+          that.count += 5;
+        }
+      }
+    }
+  });
+</script>
+</html>

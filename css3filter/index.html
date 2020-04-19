@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>css3filter demo</title>
+  <script src="./vendor/vue/vue.js"></script>
+  <style>
+    *{
+      margin: 0;
+      padding: 0;
+    }
+    #head_title{
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+    .filter{
+      width: 100%;
+      height: 100vh;
+      display: flex;
+    }
+    .filter .gray{
+      /* 这是网页变灰的代码 */
+      filter:grayscale(1);
+    }
+    .fliter_wrap{
+      width: 50%;
+      height: 100%;
+      background-image: url('images/background.jpg');
+      background-size: 100% 100%;
+      background-repeat: no-repeat;
+    }
+  </style>
+</head>
+<body>
+  <div id="head_title">
+    <h1>网页整体变灰</h1>
+  </div>
+  <div class="filter">
+    <div class="fliter_wrap normal"></div>
+    <div class="fliter_wrap gray"></div>
+  </div>
+</body>
+</html>
