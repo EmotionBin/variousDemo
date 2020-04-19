@@ -100,7 +100,7 @@
 		},
 		destroyed () {
 			//在组件销毁的时候取消对鼠标滚轮滚动事件的监听
-			this.$refs.scrollDom.removeEventListener('scroll', this.handleScroll)
+			this.$refs.scrollDom.removeEventListener('scroll', this.handleScroll);
 		},
     computed:{
       
@@ -114,9 +114,9 @@
         const viewHeight = scrollDom.clientHeight;
         //获取当前滚动位置
         const curScroll = scrollDom.scrollTop;
-        //获取整个滚动条高度
+        //获取整个可滚动区域高度
         const scrollHeight = scrollDom.scrollHeight;
-        //判断滚动条触底(滚动可视区域高度 + 当前滚动位置 === 整个滚动高度)
+        //判断滚动条触底(滚动可视区域高度 + 当前滚动位置 === 整个可滚动区域高度)
         if(viewHeight + curScroll === scrollHeight){
           console.log('滚动条触底');
           that.count += 5;

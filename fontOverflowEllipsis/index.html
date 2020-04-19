@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>fontOverflowEllipsis demo</title>
+  <script src="./vendor/vue/vue.js"></script>
+  <style>
+    *{
+      margin: 0;
+      box-sizing: border-box;
+    }
+    .head{
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .fontOverflowEllipsis{
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+    .font_demo{
+      width: 600px;
+      padding: 10px;
+      margin: 0 auto;
+      background-color: #d1d1d1;
+      box-shadow: 0 0 3px #666;
+    }
+    .font_warp{
+      position: relative;
+      display: -webkit-box;
+      overflow: hidden;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 5;
+      width: 100%;
+      /* padding: 10px; */
+      word-break: break-all;
+    }
+    .font_warp.unfold{
+      -webkit-line-clamp: unset;
+    }
+    .font_btn{
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      color: blue;
+      cursor: pointer;
+      background-color: #d1d1d1;
+    }
+  </style>
+</head>
+<body>
+  <div class="fontOverflowEllipsis">
+    <div class="head">
+      <h1>多行文本溢出省略号+展开😎</h1>
+    </div>
+    <div class="font_demo">
+      <div class="font_warp" ref="fontRef" :class="{'unfold':!isOverflow}">
+        <span v-for="i in count">我太难了</span>
+        <div class="font_btn" @click="fontFormat">
+          <span v-if="isOverflow">...展开</span>
+          <span v-if="!isOverflow">收起</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+<script type="text/javascript">
+  var fontOverflowEllipsis_el = new Vue({
+    el:'.fontOverflowEllipsis',
+    data:{
+      count:100,
+      isOverflow:true
+    },
+    mounted() {
+      this.init();
+		},
+		destroyed () {
+
+		},
+    computed:{
+      
+    },
+    methods:{
+      init(){
+        const fontDom = this.$refs.fontRef;
+        //获取滚动可视区域高度
+        const viewHeight = fontDom.clientHeight;
+        //获取整个可滚动区域高度
+        const scrollHeight = fontDom.scrollHeight;
+        console.log(fontDom.scrollHeight);
+        console.log(fontDom.clientHeight);
+        //思路：当元素的scrollHeight > clientHeight时，则产生溢出
+        this.isOverflow = scrollHeight > viewHeight ? true : false;
+      },
+      fontFormat(){
+        this.isOverflow = !this.isOverflow;
+      }
+    }
+  });
+</script>
+</html>

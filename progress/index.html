@@ -9,6 +9,9 @@
     *{
       margin: 0;
     }
+    .head{
+      text-align: center;
+    }
     .progress{
       position: fixed;
       top: 0;
@@ -27,7 +30,9 @@
   </style>
 </head>
 <body>
-  <h1>顶部进度条</h1>
+  <div class="head">
+    <h1>顶部进度条😎</h1>
+  </div>
   <div class="progress" v-show="isProgressing">
     <div class="progress_wrap">
       <div class="progress_inner" :style="{width:getCurProgress}"></div> 

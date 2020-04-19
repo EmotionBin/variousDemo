@@ -13,6 +13,9 @@
     *{
       margin: 0;
     }
+    .head{
+      text-align: center;
+    }
     .returnTop{
       width: 50px;
       height: 50px;
@@ -36,7 +39,9 @@
   </style>
 </head>
 <body>
-  <h1>一个返回顶部的按钮</h1>
+  <div class="head">
+    <h1>一个返回顶部的按钮😎(鼠标滚轮往下滚，右下角会出现按钮)</h1>
+  </div>
   <div class="returnTop">
     <div class="returnTop_wrap" v-if="btnFlag">
       <div class="top_btn" @click="backTop">
