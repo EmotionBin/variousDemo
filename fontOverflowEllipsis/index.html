@@ -28,7 +28,6 @@
       box-shadow: 0 0 3px #666;
     }
     .font_warp{
-      position: relative;
       display: -webkit-box;
       overflow: hidden;
       -webkit-box-orient: vertical;
@@ -41,9 +40,8 @@
       -webkit-line-clamp: unset;
     }
     .font_btn{
-      position: absolute;
-      right: 0;
-      bottom: 0;
+      display: flex;
+      justify-content: flex-end;
       color: blue;
       cursor: pointer;
       background-color: #d1d1d1;
@@ -58,10 +56,12 @@
     <div class="font_demo">
       <div class="font_warp" ref="fontRef" :class="{'unfold':!isOverflow}">
         <span v-for="i in count">我太难了</span>
-        <div class="font_btn" @click="fontFormat">
-          <span v-if="isOverflow">...展开</span>
+      </div>
+      <div class="font_btn" @click="fontFormat">
+        <template v-if="isTextExceed">
+          <span v-if="isOverflow">展开</span>
           <span v-if="!isOverflow">收起</span>
-        </div>
+        </template>
       </div>
     </div>
   </div>
@@ -71,7 +71,11 @@
     el:'.fontOverflowEllipsis',
     data:{
       count:100,
-      isOverflow:true
+      //判断文字是否溢出
+      isOverflow:true,
+      //判断文字是否超过限制，如果文字较少没超过限制为false，反之为true
+      //这个字段用于判断是否显示展开和收起，防止文字过少时仍然显示展开和收起
+      isTextExceed:false
     },
     mounted() {
       this.init();
@@ -80,11 +84,14 @@
 
 		},
     computed:{
-      
+
     },
     methods:{
       init(){
+        //拿到文本的dom
         const fontDom = this.$refs.fontRef;
+        //当文本溢出时，这个div的高度是105px，只需要判断当前这个div的高度是否小于105px即可判断文字是否超过指定数量
+        this.isTextExceed =  fontDom.offsetHeight < 105 ? false : true;
         //获取滚动可视区域高度
         const viewHeight = fontDom.clientHeight;
         //获取整个可滚动区域高度
