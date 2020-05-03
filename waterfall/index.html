@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>waterfall demo</title>
+  <style>
+    *{
+      margin: 0;
+    }
+    body{
+      background-color: #ecf0f1;
+    }
+    .waterfall{
+      font-family: Helvetica;
+      /* 居中并设置宽高 */
+      margin: 0 auto;
+      width: 720px;
+      height: 1000px;
+    }
+    .waterfall_wrap {
+      width: 100%;  
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      flex-wrap: wrap;
+    }
+    .item {
+      position: relative;
+      width: 25%;
+      padding: 2px;
+      box-sizing: border-box;
+      counter-increment: item-counter;
+    }
+    .item img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+    .item::after {
+      position: absolute;
+      display: block;
+      top: 2px;
+      left: 2px;
+      width: 24px;
+      height: 24px;
+      text-align: center;
+      line-height: 24px;
+      background-color: #000;
+      color: #fff;
+      content: counter(item-counter);
+    }
+    .item:nth-child(4n+1) {
+      order: 1;
+    }
+    .item:nth-child(4n+2) {
+      order: 2;
+    }
+    .item:nth-child(4n+3) {
+      order: 3;
+    }
+    .item:nth-child(4n) {
+      order: 4;
+    }
+  </style>
+</head>
+<body>
+  <div class="waterfall">
+    <div class="waterfall_wrap">
+      <div class="item">
+        <img src="https://picsum.photos/360/460?random=1">
+      </div>
+      <div class="item">
+        <img src="https://picsum.photos/360/520?random=2">
+      </div>
+      <div class="item">
+        <img src="https://picsum.photos/360/420?random=3">
+      </div>
+      <div class="item">
+        <img src="https://picsum.photos/360/460?random=4">
+      </div>
+      <div class="item">
+        <img src="https://picsum.photos/360/480?random=5">
+      </div>
+      <div class="item">
+        <img src="https://picsum.photos/360/500?random=6">
+      </div>
+      <div class="item">
+        <img src="https://picsum.photos/360/500?random=7">
+      </div>
+      <div class="item">
+        <img src="https://picsum.photos/360/480?random=8">
+      </div>
+      <div class="item">
+        <img src="https://picsum.photos/360/440?random=9">
+      </div>
+      <div class="item">
+        <img src="https://picsum.photos/360/420?random=10">
+      </div>
+      <div class="item">
+        <img src="https://picsum.photos/360/500?random=11">
+      </div>
+      <div class="item">
+        <img src="https://picsum.photos/360/460?random=12">
+      </div>
+      <div class="item">
+        <img src="https://picsum.photos/360/480?random=13">
+      </div>
+      <div class="item">
+        <img src="https://picsum.photos/360/440?random=14">
+      </div>
+      <div class="item">
+        <img src="https://picsum.photos/360/420?random=15">
+      </div>
+      <div class="item">
+        <img src="https://picsum.photos/360/500?random=16">
+      </div>
+    </div>
+  </div> 
+</body>
+</html>
