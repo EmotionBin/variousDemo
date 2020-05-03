@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>css triangle demo</title>
+  <style>
+    *{
+      margin: 0;
+    }
+    .triangle_wrap{
+      display: flex;
+      width: 100%;
+      height: 100vh; 
+      flex-direction: column;
+      align-items: center;
+    }
+    .triangle{
+      width: 0;
+      height: 0;
+      margin-top: 100px;
+      border: 20px solid red;
+    }
+    .top{
+      border-right-color: transparent;
+      border-top-color: transparent;
+      border-left-color: transparent;
+    }
+    .left{
+      border-bottom-color: transparent;
+      border-top-color: transparent;
+      border-left-color: transparent;
+    }
+    .right{
+      border-right-color: transparent;
+      border-top-color: transparent;
+      border-bottom-color: transparent;
+    }
+    .bottom{
+      border-right-color: transparent;
+      border-bottom-color: transparent;
+      border-left-color: transparent;
+    }
+  </style>
+</head>
+<body>
+  <div class="triangle_wrap">
+    <h1>纯css绘制三角形😎</h1>
+    <div class="triangle top"></div>
+    <div class="triangle left"></div>
+    <div class="triangle right"></div>
+    <div class="triangle bottom"></div>
+  </div>
+</body>
+</html>
