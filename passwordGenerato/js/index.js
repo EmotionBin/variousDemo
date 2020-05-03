@@ -95,7 +95,6 @@ let vue = new Vue({
                         //调用生成方法生成密码
                         generatedPassword += randomFunc[funcName]();
                     });
-                    console.log(generatedPassword,i)
                 }
                 //返回长度为你设置的长度的字符串
                 return generatedPassword.slice(0, length);
