@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>imgLazyLoad demo</title>
+  <style>
+    *{
+      margin: 0;
+    }
+    body{
+      background-color: #ecf0f1;
+    }
+    h1{
+      text-align: center;
+      margin: 10px 0;
+    }
+    img {
+      display: block;
+      margin: 50px auto;
+      width: 400px;
+      height: 400px;
+    }
+  </style>
+</head>
+<body>
+  <h1>实现图片懒加载😎</h1>
+  <img src="default.jpg" data-src="https://picsum.photos/400/400?random=1" alt="">
+  <img src="default.jpg" data-src="https://picsum.photos/400/400?random=2" alt="">
+  <img src="default.jpg" data-src="https://picsum.photos/400/400?random=3" alt="">
+  <img src="default.jpg" data-src="https://picsum.photos/400/400?random=4" alt="">
+  <img src="default.jpg" data-src="https://picsum.photos/400/400?random=5" alt="">
+  <img src="default.jpg" data-src="https://picsum.photos/400/400?random=6" alt="">
+  <img src="default.jpg" data-src="https://picsum.photos/400/400?random=7" alt="">
+  <img src="default.jpg" data-src="https://picsum.photos/400/400?random=8" alt="">
+  <img src="default.jpg" data-src="https://picsum.photos/400/400?random=9" alt="">
+  <img src="default.jpg" data-src="https://picsum.photos/400/400?random=10" alt="">
+  <img src="default.jpg" data-src="https://picsum.photos/400/400?random=11" alt="">
+  <img src="default.jpg" data-src="https://picsum.photos/400/400?random=12" alt="">
+  <img src="default.jpg" data-src="https://picsum.photos/400/400?random=13" alt="">
+  <img src="default.jpg" data-src="https://picsum.photos/400/400?random=14" alt="">
+  <img src="default.jpg" data-src="https://picsum.photos/400/400?random=15" alt="">
+  <img src="default.jpg" data-src="https://picsum.photos/400/400?random=16" alt="">
+</body>
+<script type="text/javascript">
+  //思路:
+  //监听滚动，滚动时先触发节流函数，由节流函数触发图片懒加载函数
+  //图片懒加载函数核心：判断滚动条距离顶部距离与当前可见区域高度的和大于图片距离顶部的距离则加载图片
+  //图片懒加载函数具体实现：
+  //只有图片的src属性是一个可访问的链接时才会加载图片，初始时图片src默认随意指定，并给图片标签绑定上data-src属性，这个值是图片的链接
+  //当滚动条距离顶部距离与当前可见区域高度的和大于图片距离顶部的距离时，把图片的src属性用data-src属性替换,此时图片才开始真正的加载
+  const imgDom = document.getElementsByTagName('img');
+  var num = imgDom.length;
+  var n = 0; //存储图片加载到的位置，避免每次都从第一张图片开始遍历
+  lazyload(); //页面载入完毕加载可视区域内的图片
+  function lazyload() { //监听页面滚动事件
+    var seeHeight = document.documentElement.clientHeight; //可见区域高度
+    var scrollTop = document.documentElement.scrollTop || document.body.scrollTop; //滚动条距离顶部高度
+    for (var i = n; i < num; i++) {
+      if (imgDom[i].offsetTop < seeHeight + scrollTop) {
+        if (imgDom[i].getAttribute("src") == "default.jpg") {
+          imgDom[i].src = imgDom[i].getAttribute("data-src");
+        }
+        n = i + 1;
+      }
+    }
+  }
+  // 简单的节流函数
+  //fun 要执行的函数
+  //delay 延迟
+  //time  在time时间内必须执行一次
+  function throttle(fun, delay, time) {
+    var timeout,
+    startTime = new Date();
+    return function() {
+      var context = this,
+      args = arguments,
+      curTime = new Date();
+      clearTimeout(timeout);
+      // 如果达到了规定的触发时间间隔，触发 handler
+      if (curTime - startTime >= time) {
+        fun.apply(context, args);
+        startTime = curTime;
+        // 没达到触发间隔，重新设定定时器
+      } else {
+        timeout = setTimeout(fun, delay);
+      }
+    };
+  };
+  // 采用了节流函数
+  window.addEventListener('scroll',throttle(lazyload,500,1000));
+</script>
+</html>
