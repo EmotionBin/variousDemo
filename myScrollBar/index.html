@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>elScrollBar</title>
+  <script src="./vendor/vue/vue.js"></script>
+  <!-- <script src="./vendor/element/index.js"></script> -->
+  <!-- <link rel="stylesheet" href="./vendor/element/index.css"> -->
+  <style>
+    *{
+      margin: 0;
+    }
+    .head{
+      text-align: center;
+    }
+    .elScrollBar{
+      height: 40vh;
+    }
+    .el-scrollbar__wrap {
+      overflow-x: hidden;
+    }
+    .div-wrap{
+      height: 500px;width: 100%;
+    }
+    .div1{
+      background: red;
+    }
+    .div2{
+      background: yellowgreen;
+    }
+    .div3{
+      background: blueviolet;
+    }
+    .my-scrollbar{
+      height: 40vh;
+      position: relative;
+      overflow: hidden;
+    }
+    .my-scrollbar-wrap{
+      height: 100%;
+      /* 这里负的右外边距是为了把windows自带的滚动条隐藏 */
+      margin-right: -15px;
+      overflow: auto;
+    }
+    .my-scrollbar-scroll{
+      position: absolute;
+      top: 2px;
+      right: 2px;
+      bottom: 2px;
+      width: 6px;
+      z-index: 1;
+      border-radius: 4px;
+      /* opacity: 0; */
+      -webkit-transition: opacity 120ms ease-out;
+      transition: opacity 120ms ease-out;
+    }
+    .my-scrollbar-scroll-thumb{
+      position: relative;
+      display: block;
+      width: 100%;
+      /* 滚动条滑块的高度必须是计算出来的 */
+      height: 0;
+      cursor: pointer;
+      border-radius: inherit;
+      background-color: rgba(0,0,0,.3);
+      -webkit-transition: .3s background-color;
+      transition: .3s background-color;
+    }
+    .hide{
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="head hide">
+    <h1>element隐藏滚动条组件😎</h1>
+  </div>
+  <div class="elScrollBar hide">
+    <!-- 注意需要给 el-scrollbar 设置高度，判断是否滚动是看它的height判断的 -->
+    <el-scrollbar style="height: 100%;"> <!-- 滚动条 -->
+      <div class="div-wrap div1"></div>
+      <div class="div-wrap div2"></div>
+      <div class="div-wrap div3"></div>
+  </el-scrollbar><!-- /滚动条 -->
+  </div>
+  <div class="head">
+    <h1>我自己写的滚动条插件😎</h1>
+  </div>
+  <div class="my-scrollbar">
+    <div class="my-scrollbar-wrap" ref="myScrollbar">
+      <div class="my-scrollbar-view">
+        <div class="div-wrap div1"></div>
+        <div class="div-wrap div2"></div>
+        <div class="div-wrap div3"></div>
+      </div>
+    </div>
+    <div class="my-scrollbar-scroll vertical" ref="myScrollbarVertical" @mousedown="verticalMouseDown">
+      <div class="my-scrollbar-scroll-thumb" ref="scrollbarThumb" @mousedown="mouseDown"></div>
+    </div>
+  </div>
+</body>
+<script type="text/javascript">
+  // var elScrollBar_el = new Vue({
+  //   el:'.elScrollBar',
+  //   data:{
+
+  //   },
+  //   mounted(){
+
+  //   },
+  //   computed:{
+
+  //   },
+  //   methods:{
+        
+  //   }
+  // });
+
+  //这是我自己写的滚动条组件
+  var myScrollBar_el = new Vue({
+    el:'.my-scrollbar',
+    data:{
+      //鼠标是否按下
+      cursorDown:false,
+    },
+    mounted(){
+      //在初始化的时候监听鼠标滚轮滚动事件
+			this.$refs.myScrollbar.addEventListener('scroll', this.handleScroll);
+      //初始化 计算滚动条高度
+      this.init();
+    },
+    destroyed () {
+			//在组件销毁的时候取消各种事件的监听
+      this.$refs.myScrollbar.removeEventListener('scroll', this.handleScroll);
+      document.removeEventListener('mouseup', this.mouseUp);
+		},
+    computed:{
+
+    },
+    methods:{
+      //初始化 计算滚动条的高度
+      init(){
+        let heightPercentage;
+        const scrollWrap = this.$refs.myScrollbar;
+        if (!scrollWrap) return;
+        //根据可视区域的高度与这个div的所有高度的比值计算出滚动条滑块的高度
+        heightPercentage = (scrollWrap.clientHeight * 100 / scrollWrap.scrollHeight);
+        //如果高度超过100 说明没有发生溢出 不会出现滚动条
+        if(heightPercentage >= 100) return;
+        this.$refs.scrollbarThumb.style.height = heightPercentage + '%';
+      },
+      //鼠标在滚动条上滚动的时候触发
+      handleScroll(){
+        const scrollWrap = this.$refs.myScrollbar;
+        const scroll = this.$refs.scrollbarThumb;
+        //当前滚动高度与可视区域的高度的比值就是滚动条滑块移动的距离
+        scroll.style.transform = `translateY(${scrollWrap.scrollTop * 100 / scrollWrap.clientHeight}%)`;
+      },
+      //鼠标在滚动条滑块上按下的回调
+      mouseDown(e){
+        //按下鼠标右键不触发
+        if (e.ctrlKey || e.button === 2) {
+          return;
+        }
+        this.startDrag(e);
+        //计算鼠标在滑块上点击的位置距离滚动条滑块底部的距离，并将这个值挂载后data属性中，方便后面做判断
+        this.thumbBottom = e.currentTarget.offsetHeight - (e.clientY - e.currentTarget.getBoundingClientRect().top);
+      },
+      startDrag(e){
+        //如果有多个相同类型事件的事件监听函数绑定到同一个元素，当该类型的事件触发时，它们会按照被添加的顺序执行(详见MDN)
+        //阻止mousedown事件冒泡,并且阻止p元素上绑定的其他mousedown事件的事件监听函数的执行
+        e.stopImmediatePropagation();
+        this.cursorDown = true;
+        document.addEventListener('mousemove', this.mouseMove);
+        document.addEventListener('mouseup', this.mouseUp);
+        // 在网页中拖动时，会引起某些文字或一些内容被选中，导致网页中蓝蓝的一片，视觉效果很差，所以这里设置onselectstart为false
+        document.onselectstart = () => false;
+      },
+      //鼠标移动的回调
+      mouseMove(e){
+        /* 
+          思路:
+          计算出鼠标此时位置与滚动条顶部的距离offset
+          计算出当前鼠标位置与滚动条滑块底部距离thumbClickPosition
+          计算出滚动条滑块顶部距离滚动条顶部距离的百分比值thumbPositionPercentage
+          计算出整个滚动条的scrollTop，即把可视区域的百分比thumbPositionPercentage映射到整个div高度
+          手动改变scrollTop
+          手动改变滑块位置
+        */
+        if(!this.cursorDown) return ;
+        const prevPage = this.thumbBottom;
+        if(!prevPage) return;
+        const scrollWrap = this.$refs.myScrollbar;
+        const scroll = this.$refs.scrollbarThumb;
+        const vertical = this.$refs.myScrollbarVertical;
+        // 计算出鼠标此时位置与滚动条顶部的距离offset
+        const offset = e.clientY - vertical.getBoundingClientRect().top;
+        // 防止滚动条滑块超出滚动条的顶部或底部最大安全距离
+        if(offset + prevPage - scroll.clientHeight < 0 || offset + prevPage > scrollWrap.clientHeight) return;
+        // 计算出当前鼠标位置与滚动条滑块顶部部距离(滚动条滑块高度 - 鼠标在滑块上点击的位置距离滚动条thumb底部的距离)
+        const thumbClickPosition = scroll.offsetHeight - prevPage;
+        // 计算出滚动条滑块顶部距离滚动条顶部距离的百分比值
+        const thumbPositionPercentage = ((offset - thumbClickPosition) * 100 / vertical.offsetHeight);
+        // 上面计算的百分比值乘上整个这个div的所有高度再除以100得到真正的scrollTop
+        const scrollTop = thumbPositionPercentage * scrollWrap.scrollHeight / 100;
+        // 改变scrollTop，因为没有触发滚动事件，只有手动改变scrollTop，可视区域才会发生滚动
+        scrollWrap.scrollTop = scrollTop;
+        // 在可视区域发生滚动的同时，滑块也要同步滚动
+        scroll.style.transform = `translateY(${scrollTop * 100 / scrollWrap.clientHeight}%)`;
+      },
+      //鼠标按下后抬起的回调
+      mouseUp(e){
+        this.cursorDown = false;
+        this.thumbBottom = 0;
+        document.removeEventListener('mousemove', this.mouseMove);
+        document.onselectstart = () => null;
+      },
+      //点击滚动条可滚动区域 重新定位滚动条
+      verticalMouseDown(e){
+        /*
+          思路:
+          计算出当前鼠标位置与滚动条顶部的距离offset
+          计算出滚动条滑块的高度的一半thumbHalf
+          （offset-thumbHalf）除以滚动条高度即滚动条滑块距离滚动条顶部的百分比值
+          计算出整个滚动条的scrollTop
+          手动改变scrollTop
+          手动改变滑块位置
+        */
+        const scrollWrap = this.$refs.myScrollbar;
+        const offset = Math.abs(e.target.getBoundingClientRect().top - e.clientY);
+        const thumbHalf = (this.$refs.scrollbarThumb.offsetHeight / 2);
+        const thumbPositionPercentage = ((offset - thumbHalf) * 100 / this.$refs.myScrollbarVertical.offsetHeight);
+        const scrollTop = thumbPositionPercentage * scrollWrap.scrollHeight / 100;
+        scrollWrap.scrollTop = scrollTop;
+        this.$refs.scrollbarThumb.style.transform = `translateY(${scrollTop * 100 / scrollWrap.clientHeight}%)`;
+      }
+    }
+  });
+</script>
+</html>
