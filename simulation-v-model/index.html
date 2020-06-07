@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>simulation v-model</title>
+  <script src="./vendor/vue/vue.js"></script>
+  <style>
+    *{
+      margin: 0;
+    }
+    .head{
+      text-align: center;
+    }
+    .simulation-demo{
+      height: 200px;
+    }
+    .simulation-wrap{
+      height: 100%;
+    }
+  </style>
+</head>
+<body>
+  <div class="head">
+    <h1>手动模拟v-model😎</h1>
+  </div>
+  <div class="simulation-demo">
+    <div class="simulation-wrap">
+      <input type="text" :value="val" @input="val=$event.target.value">
+      <div>{{val}}</div>
+    </div>
+  </div>
+</body>
+<script type="text/javascript">
+  /*
+    思路：
+    1.首先将输入框的值绑定到val变量上，但是这个绑定是单向的，只有val变量的值改变的时候才会改变输入框的值，input的value改变并不能改变val变量的值
+    2.监听input事件(input输入框都自带的事件)，当输入框输入值触发input事件，更新变量val的值
+    
+    只有1.2同时存在时才能够实现双向绑定
+  */
+  var simulation_el = new Vue({
+    el:'.simulation-demo',
+    data:{
+      val:'请输入内容'
+    },
+    mounted(){
+
+    },
+    computed:{
+
+    },
+    methods:{
+        
+    }
+  });
+</script>
+</html>
