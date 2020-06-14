@@ -11,12 +11,18 @@
 1. 开启后台服务  
 
     `cd server`  
+    
     `npm install` or `cnpm install`     
+
     `node app.js`
 
 2. 启动前端页面
 
     重新回到项目根目录  
+
     `cd client`  
+
     `npm install` or `cnpm install`  
+
     `npm run serve`
+    
