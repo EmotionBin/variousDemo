@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>text2audio</title>
+  <link href="https://cdn.bootcdn.net/ajax/libs/element-ui/2.13.2/theme-chalk/index.css" rel="stylesheet">
+</head>
+<body>
+  <div class="app-container">
+    <div>
+      <el-row>
+        <el-col>
+          <el-input v-model="audioText" placeholder="请输入需要合成的语音">
+            <el-button @click="sendText(audioText)" slot="append" icon="el-icon-upload">点击合成</el-button>
+          </el-input>
+        </el-col>
+      </el-row>
+    </div>
+    <el-table v-loading="listLoading" :data="list" element-loading-text="Loading" border fit highlight-current-row>
+      <el-table-column align="center" label="ID" width="95">
+        <template slot-scope="scope">
+          {{scope.$index}}
+        </template>      
+      </el-table-column>
+      <el-table-column align="center" label="文字" width="210">
+        <template slot-scope="scope">
+          {{scope.row.audioText}}
+        </template>      
+      </el-table-column>
+      <el-table-column align="center" label="链接">
+        <template slot-scope="scope">
+          {{scope.row.audioLink}}
+        </template>      
+      </el-table-column>
+      <el-table-column align="center" label="音频">
+        <template slot-scope="scope">
+          <audio :src="'http://127.0.0.1:8888' + scope.row.audioLink" controls></audio>
+        </template>      
+      </el-table-column>
+    </el-table>
+  </div>
+</body>
+<script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.11/vue.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/element-ui/2.13.2/index.js"></script>
+<script>
+  new Vue({
+    el:'.app-container',
+    data:{
+      audioText:'',
+      audioLink:'',
+      listLoading:false,
+      list:[]
+    },
+    methods:{
+      sendText(audioText){
+        fetch(`http://127.0.0.1:8888/api/audio?text=${audioText}`,{method:'get'})
+        .then( res => {
+          return res.json();
+        })
+        .then(res => {
+          this.audioLink = res.audioLink;
+          this.list.push({audioText, audioLink:this.audioLink})
+        })
+      }
+    }
+  })
+</script>
+</html>
