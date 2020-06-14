@@ -10,7 +10,7 @@
 
 1. 开启后台服务  
 
-    `cd server`
+    `cd server`  
     `npm install` or `cnpm install`     
     `node app.js`
 
