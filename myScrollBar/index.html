@@ -82,7 +82,7 @@
       <div class="div-wrap div1"></div>
       <div class="div-wrap div2"></div>
       <div class="div-wrap div3"></div>
-  </el-scrollbar><!-- /滚动条 -->
+    </el-scrollbar><!-- /滚动条 -->
   </div>
   <div class="head">
     <h1>我自己写的滚动条插件😎</h1>
@@ -125,8 +125,6 @@
       cursorDown:false,
     },
     mounted(){
-      //在初始化的时候监听鼠标滚轮滚动事件
-			this.$refs.myScrollbar.addEventListener('scroll', this.handleScroll);
       //初始化 计算滚动条高度
       this.init();
     },
@@ -141,6 +139,8 @@
     methods:{
       //初始化 计算滚动条的高度
       init(){
+        //在初始化的时候监听鼠标滚轮滚动事件
+			  this.$refs.myScrollbar.addEventListener('scroll', this.handleScroll);
         let heightPercentage;
         const scrollWrap = this.$refs.myScrollbar;
         if (!scrollWrap) return;
