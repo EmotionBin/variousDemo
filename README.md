@@ -7,6 +7,7 @@ keep going,shout up to every coder,respect!
 ## 目录
 
 - [对指定日期进行倒计时](https://github.com/EmotionBin/variousDemo/tree/master/count-down)
+- [css实现时钟](https://github.com/EmotionBin/variousDemo/tree/master/css-clock)
 - [实现滚轴特效](https://github.com/EmotionBin/variousDemo/tree/master/css-sticky)
 - [css绘制一个三角形](https://github.com/EmotionBin/variousDemo/tree/master/css-triangle)
 - [一行代码网页变灰](https://github.com/EmotionBin/variousDemo/tree/master/css3-filter)
