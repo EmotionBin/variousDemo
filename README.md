@@ -12,6 +12,7 @@ keep going,shout up to every coder,respect!
 - [css绘制一个三角形](https://github.com/EmotionBin/variousDemo/tree/master/css-triangle)
 - [一行代码网页变灰](https://github.com/EmotionBin/variousDemo/tree/master/css3-filter)
 - [多行文本文字溢出显示省略号](https://github.com/EmotionBin/variousDemo/tree/master/font-overflow-ellipsis)
+- [实现拖拽功能](https://github.com/EmotionBin/variousDemo/tree/master/drag)
 - [实现图片懒加载](https://github.com/EmotionBin/variousDemo/tree/master/img-lazy-load)
 - [实现jsonp跨域](https://github.com/EmotionBin/variousDemo/tree/master/jsonp)
 - [实现九宫格抽奖](https://github.com/EmotionBin/variousDemo/tree/master/luck-draw)
