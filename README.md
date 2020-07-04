@@ -24,6 +24,7 @@ keep going,shout up to every coder,respect!
 - [模拟v-model](https://github.com/EmotionBin/variousDemo/tree/master/simulation-v-model)
 - [基于百度api实现文字转语音](https://github.com/EmotionBin/variousDemo/tree/master/text2audio)
 - [实现瀑布流布局](https://github.com/EmotionBin/variousDemo/tree/master/waterfall)
+- [webpack](https://github.com/EmotionBin/variousDemo/tree/master/webpack)
 
 ## 小尾巴
 
