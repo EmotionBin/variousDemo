@@ -25,6 +25,7 @@ keep going,shout up to every coder,respect!
 - [基于百度api实现文字转语音](https://github.com/EmotionBin/variousDemo/tree/master/text2audio)
 - [实现瀑布流布局](https://github.com/EmotionBin/variousDemo/tree/master/waterfall)
 - [webpack](https://github.com/EmotionBin/variousDemo/tree/master/webpack)
+- [列表大数据懒加载](https://github.com/EmotionBin/variousDemo/tree/master/list-lazy-load)
 
 ## 小尾巴
 
