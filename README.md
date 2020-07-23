@@ -26,6 +26,7 @@ keep going,shout up to every coder,respect!
 - [实现瀑布流布局](https://github.com/EmotionBin/variousDemo/tree/master/waterfall)
 - [webpack](https://github.com/EmotionBin/variousDemo/tree/master/webpack)
 - [列表大数据懒加载](https://github.com/EmotionBin/variousDemo/tree/master/list-lazy-load)
+- [列表大数据懒加载v2](https://github.com/EmotionBin/variousDemo/tree/master/list-lazy-load-v2)
 
 ## 小尾巴
 
