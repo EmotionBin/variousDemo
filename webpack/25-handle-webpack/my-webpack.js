@@ -1,4 +1,5 @@
 const fs = require('fs');
+const path = require('path');
 const parser = require('@babel/parser');
 const traverse = require('@babel/traverse').default;
 const babel = require('@babel/core');
@@ -48,6 +49,87 @@ function createAsset(fileName) {
   return { id, fileName, code, dependencies };
 }
 
-// 从入口文件引入资源，入口文件默认为index.js
-const asset = createAsset('./src/index.js');
+/**
+ * 获取所有模块的依赖信息
+ * @param {string} entry 
+ */
+function createGraph(entry){
+  // 根据入口文件拿到一些依赖信息
+  const mainAsset = createAsset(entry);
+
+  // 利用队列循环(或者递归)找出所有依赖关系
+  const queue = [mainAsset];
+
+  for(const asset of queue){
+    // 获取入口文件的绝对路径
+    const dirname = path.dirname(asset.fileName);
+
+    asset.mapping = {};
+
+    asset.dependencies.forEach(relativePath => {
+      // 因为入口文件拿到的文件依赖关系是相对路径，和当前js文件不在同一个目录下，所以要转换成绝对路径
+      const absolutePath = path.join(dirname, relativePath);
+      // 拿到入口文件中子文件的依赖关系
+      const childAsset = createAsset(absolutePath);
+      // 存放路径与模块id的映射关系，方便后续查找
+      asset.mapping[relativePath] = childAsset.id;
+      // 把信息放入队列中，等待遍历，进行队列循环
+      queue.push(childAsset);
+    });
+  }
+  return queue;
+}
+
+/**
+ * 打包输出的函数
+ * @param {array} graph 
+ */
+function bundle(graph){
+  let modules = '';
+
+  // 将所有依赖信息组装成一个对象字符串形式，因为要打包输出到文件中，所以只能是字符串形式
+  graph.forEach(item => {
+    modules +=`
+      ${item.id}:[
+        function(require, module, exports){${item.code}},
+        ${JSON.stringify(item.mapping)}
+      ],
+    `
+  });
+
+  // 这是要输出到文件中的内容，是一个IIFE(声明立即执行函数)，这里重写了require方法，根据模块id逐个调用
+  const result = `
+    (function(modules) {
+      function require(id){
+        const [fn, mapping] = modules[id];
+
+        function localRequire(relativePath){
+          return require(mapping[relativePath]);
+        }
+
+        const module = {
+          exports:{}
+        }
+
+        fn(localRequire, module, module.exports);
+
+        return module.exports;
+      }
+
+      require(0);
+    })({${modules}})
+  `
+  // 将内容写入文件
+  fs.writeFileSync(path.join(__dirname, 'bundle.js'), result, 'utf-8');
+}
+
+// 从入口文件引入资源，入口文件默认为index.js，构建依赖关系
+const graph = createGraph('./src/index.js');
+
+// 打包文件并输出
+bundle(graph);
+
+
+
+
 
