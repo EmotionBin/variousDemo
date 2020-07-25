@@ -73,6 +73,7 @@
     </div>
   </div>
 </body>
+<script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.11/vue.js"></script>
 <script type="text/javascript">
   class LuckDraw {
     constructor(DataArr, RotateDir, cycleNumber, minSpeed) {
@@ -218,6 +219,7 @@
       // 开始抽奖
       start(){
         this.target = this.getTarget();
+        console.log('this.target: ', this.target);
         if(!this.luckDrawFn){
           // 初始化抽奖, 3代表圈数， 8代表速度，也代表时间片的个数
           this.luckDrawFn = new LuckDraw(prizeList, rotateDir, 3, 8);
