@@ -11,6 +11,8 @@
 
 **简单来说，向下滚动，要加载数据的时候，就增加 `padding-top` 减少 `padding-bottom`，向上滚动，要加载数据的时候，就减少 `padding-top` 增加 `padding-bottom`**  
 
+动态的追加 `padding-top` 和 `padding-bottom` 只是其中一种方案，还可以使用 `transform: translateY(100px)` 这种方案实现，这种方案实现更加简单，不需要去判断是修改 `padding-top` 还是修改 `padding-bottom` ，只要滚动条向下滚动就增加 `translateY` 的值，向上滚动就减少，更加方便。具体可以参考 [vue-big-tree](https://github.com/jayZOU/vue-big-tree)  
+
 ## 存在的不足
 
 1. 当数据量过大，鼠标拉动滚动条的速度过快时，会产生bug(我本地测试超过三万条数据才会出现此bug，还要根据具体运行环境确定)
