@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>luck-card</title>
+  <style>
+    *{
+      margin: 0;
+    }
+    .head{
+      text-align: center;
+    }
+    .luck-card{
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .card-wrap{
+      position: relative;
+      /* width: 400px; 
+      height: 100px; */
+    }
+    .card-prize,
+    .card-mask{
+      position: absolute;
+      left: 0;
+      top:0;
+      width: 100%;
+      height: 100%;
+    }
+    .card-prize{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="head">
+    <h1>抽奖刮刮卡😎</h1>
+  </div>
+  <div class="luck-card">
+    <div class="card-wrap" :style="getCanvasOptions">
+      <div class="card-prize">谢谢惠顾</div>
+      <div class="card-mask">
+        <canvas id="cardCanvas"></canvas>
+      </div>
+    </div>
+  </div>
+</body>
+<script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.11/vue.js"></script>
+<script type="text/javascript">
+  var progress_el = new Vue({
+    el:'.luck-card',
+    data:{
+      canvasOption:{
+        width:400,
+        height:100
+      },
+      isDraw:false
+    },
+    computed: {
+      getCanvasOptions(){
+        const { width, height } = this.canvasOption;
+        return { width:`${width}px`, height:`${height}px`}
+      }
+    },
+    mounted(){
+      this.init();
+    },
+    methods:{
+      // 初始化 设置canvas
+      init(){
+        const { width, height } = this.canvasOption;
+        const canvas = document.querySelector('#cardCanvas');
+        canvas.width = width;
+        canvas.height = height;
+        const ctx = canvas.getContext('2d');
+        ctx.fillStyle = 'pink';
+        ctx.fillRect(0, 0, width, height);
+        ctx.font = '20px 微软雅黑';
+        ctx.fillStyle = '#fff';
+        ctx.fillText('刮卡抽奖', 180, 50);
+        this.stateManege(canvas, ctx);
+      },
+      // 状态管理 开始挂卡 结束挂卡
+      stateManege(dom, ctx){
+        dom.onmousedown = () => this.isDraw = true;
+        dom.onmouseup = () => this.isDraw = false;
+        dom.onmousemove = e => this.start(e, ctx);
+      },
+      // 开始刮卡
+      start({ clientX, clientY }, ctx){
+        if(!this.isDraw) {
+          return;
+        }
+        const card = document.querySelector('.card-wrap');
+        const x = clientX - card.offsetLeft;
+        const y = clientY - card.offsetTop;
+        // 点击后画圆点
+        ctx.globalCompositeOperation = 'destination-out';
+        ctx.arc(x, y, 20, 0, 2 * Math.PI);
+        ctx.fill();
+      }
+    }
+  });
+</script>
+</html>
