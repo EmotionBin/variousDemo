@@ -11,7 +11,7 @@
 
 **页面正常关闭**
 
-现在有两个页面，index 页面和 B 页面，index 页面打开 B页面，在 B 页面将要关闭页面的时候，发送消息告诉 index 页面，让 index 页面知道 B 页面已经关闭  
+现在有两个页面，index 页面和 B 页面，index 页面打开 B页面，在 B 页面将要关闭的时候，发送消息告诉 index 页面，让 index 页面知道 B 页面已经关闭  
 
 实现思路：在 B 页面将要关闭的时候，利用 `window.onbeforeunload` 钩子执行回调，通过 `window.open` 打开 A 页面并挂载上一个 hash 锚点(如#close)，在 A 页面中监听 hash 锚点的变化，主要就是监听 `hashchange` 并执行回调  
 
@@ -19,9 +19,9 @@
 
 当页面发生崩溃时，以上方法就不适用了，因为页面崩溃后 js 无法执行，所以需要利用 `Service Worker` 来实现，采用**心跳检测**的方式  
 
-实现思路：页面 B 每 5 秒给自己的 `Service Worker` 发送一次心跳，记录一个状态 running 并更新时间戳，正常关闭的时候通知 `Service Worker` 清除这个状态。如果网页崩溃了，running 将不会被清除，且时间戳也不会再更新。`Service Worker` 每 10 秒查看一遍时间戳，**如果发现状态是 running 且时间戳有一段时间未更新了，则说明这个网页 B 发生崩溃了**  
+实现思路：页面 B 每 5 秒给自己的 `Service Worker` 发送一次心跳，记录一个状态 running 并更新时间戳，正常关闭的时候通知 `Service Worker` 清除这个状态。如果网页崩溃了，running 将不会被清除，且时间戳也不会再更新。`Service Worker` 每 10 秒查看一遍时间戳，**如果发现状态是 running 且时间戳有一段时间未更新了，则说明这个 B 页面发生崩溃了**  
 
-以上两种方案的实现可以运行 index.html 体验，在利用 `Service Worker` 如果第一次未成功，先 F12 打开控制台，如果输出为 `null`，则需要再重新打开才可以生效  
+以上两种方案的实现可以运行 index.html 体验，在利用 `Service Worker` 的时候，如果第一次未成功，先 F12 打开控制台，如果输出为 `null`，则需要再次重新打开才可以生效  
 
 参考：
 
