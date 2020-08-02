@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>image-download</title>
+  <style>
+    *{
+      margin: 0;
+    }
+    .head{
+      text-align: center;
+    }
+    .image-wrap{
+      display: flex;
+      justify-content: center;
+    }
+    .download{
+      flex: 1;
+      padding: 10px;
+    }
+    .imgStyle{
+      width: 100%;
+      height: 200px;
+    }
+  </style>
+</head>
+<body>
+  <div class="head">
+    <h1>多种方法实现图片下载😎</h1>
+  </div>
+  <div class="image-wrap">
+    <div class="download">
+      <img :src="imgUrl" class="imgStyle">
+      <div>a标签download属性下载，这种方法不支持跨域，在跨域的情况下会直接打开图片，只有在同域下才会下载</div>
+      <button><a :href="imgUrl" download="test-image.jpg">点击下载</a></button>
+    </div>
+    <div class="download">
+      <img :src="imgUrl" class="imgStyle">
+      <div>将图片转换成base64格式再进行下载，需要利用canvas，这样会造成下载后图片体积过大，如果在跨域的情况下，需要前端设置图片的crossOrigin属性为Anonymous，并且需要后端设置跨域资源共享(CORS)，
+        对于gif格式的图片只能获取第一帧的内容</div>
+      <button @click="downloadImgByBase64">点击下载</button>
+    </div>
+    <div class="download">
+      <img :src="imgUrl" class="imgStyle">
+      <div>Blob下载，待完成!!!!!</div>
+      <button @click="downloadImgByBase64">点击下载</button>
+    </div>
+    <div class="download">
+      <img :src="imgUrl" class="imgStyle">
+      <div>通过xhr获取图片再转换成Blob下载，待完成!!!!!</div>
+      <button @click="downloadImgByBase64">点击下载</button>
+    </div>
+  </div>
+</body>
+<script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.11/vue.js"></script>
+<script type="text/javascript">
+  var imageEl = new Vue({
+    el:'.image-wrap',
+    data:{
+      imgUrl:'http://localhost:9527/images/background.jpg'
+    },
+    mounted(){
+
+    },
+    methods:{
+      // 通过base64下载图片
+      downloadImgByBase64(){
+        const img = new Image();
+        img.src = this.imgUrl;
+        // 设置允许跨域
+        img.setAttribute('crossOrigin', 'Anonymous');
+        img.onload = () => {
+          const canvas = document.createElement('canvas');
+          canvas.width = img.width;
+          canvas.height = img.height;
+          const ctx = canvas.getContext('2d');
+          // 将img中的内容画到画布上
+          ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+          // 将画布内容转换为base64
+          const base64 = canvas.toDataURL();
+          // 创建a链接
+          const a = document.createElement('a');
+          a.href = base64;
+          a.download = 'test-image1.jpg';
+          // 触发a链接点击事件，浏览器开始下载文件
+          a.click();
+        }
+      }
+    }
+  });
+</script>
+</html>
