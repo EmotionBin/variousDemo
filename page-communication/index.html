@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>index</title>
+</head>
+<body>
+  <div>这是 index 页面</div>
+  <button onclick="toB()">点击打开 B 页面</button>
+  <script>
+    window.name = 'index'; // 设置页面名
+    function toB() {
+      window.open("B.html", "B"); // 打开新页面并设置页面名
+    }
+    window.addEventListener('hashchange', function () {// 监听 hash
+      console.log('window.location.hash: ', window.location.hash);
+      alert('B页面正常关闭');
+    }, false);
+  </script>
+</body>
+</html>
