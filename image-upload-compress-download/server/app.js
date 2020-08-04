@@ -9,7 +9,7 @@ const config = {
 //  开辟静态资源并且允许跨域
 app.use(express.static(__dirname, {
   setHeaders: (res, path, stat) => {
-    res.set('Access-Control-Allow-Origin', '*')
+    res.set('Access-Control-Allow-Origin', '*');
   }
 }));
 
