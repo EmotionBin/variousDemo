@@ -29,6 +29,7 @@ keep going,shout up to every coder,respect!
 - [列表大数据懒加载v2](https://github.com/EmotionBin/variousDemo/tree/master/list-lazy-load-v2)
 - [抽奖刮刮卡](https://github.com/EmotionBin/variousDemo/tree/master/luck-card)
 - [页面间通信](https://github.com/EmotionBin/variousDemo/tree/master/page-communication)
+- [图片压缩与图片下载](https://github.com/EmotionBin/variousDemo/tree/master/image-upload-compress-download)
 
 ## 小尾巴
 
