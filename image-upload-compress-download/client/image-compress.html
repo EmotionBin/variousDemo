@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>image-compress</title>
+  <style>
+    *{
+      margin: 0;
+    }
+    .head{
+      text-align: center;
+    }
+    .image-wrap{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    .imgStyle{
+      width: 400px;
+      height: 300px;
+    }
+  </style>
+</head>
+<body>
+  <div class="head">
+    <h1>方法实现图片压缩😎</h1>
+  </div>
+  <div class="image-wrap">
+    <input type="file" accept="image/*" onchange="loadFile(event)"/>
+    <div>这是原来的图片</div>
+    <img id="previewContainer" class="imgStyle">
+    <div style="margin-top: 50px;">这是压缩后的图片</div>
+    <img id="compressContainer" class="imgStyle">
+  </div>
+</body>
+<script>
+  const image = document.querySelector("#previewContainer");
+  const compressImage = document.querySelector("#compressContainer");
+  const canvas = document.createElement('canvas');
+  const ctx = canvas.getContext('2d');
+
+  // 选择图片后会触发这个回调
+  const loadFile = event => {
+    const reader = new FileReader();
+    const file = event.target.files[0];
+    reader.readAsDataURL(file);
+    reader.onload = () => {
+      image.src = reader.result;
+    };
+  }
+
+  // 利用canvas的toDataURL方法进行base64编码同时进行压缩
+  image.onload = function() {
+    canvas.width = 400;
+    canvas.height = 300;
+    ctx.drawImage(image, 0, 0, 400, 300);
+    // 第一个参数是mimeType，第二个参数是压缩质量
+    // https://developer.mozilla.org/zh-CN/docs/Web/API/HTMLCanvasElement/toDataURL
+    const imageDataURL = canvas.toDataURL("image/png", 0.8);
+    compressImage.src = imageDataURL;
+  };
+</script>
+</html>
