@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>file-download-progress</title>
+  <link href="https://cdn.bootcdn.net/ajax/libs/element-ui/2.13.2/theme-chalk/index.css" rel="stylesheet">
+  <style>
+    html,body{
+      width: 100%;  
+      height: 100%;
+    }
+    *{
+      margin: 0;
+    }
+    #app{
+      width: 100%;
+      height: 100%;
+    }
+    .head{
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div id="app" v-loading="loading" :element-loading-text="uploadText">
+    <div class="head">
+      <h1>文件下载与监听请求进度😎</h1>
+    </div>
+    <div>window.open()的方式<button @click="downloadFile">点击下载</button></div>
+    <div>window.location.href的方式<button @click="downloadFile1">点击下载</button></div>
+    <div>监听请求进度<button @click="getProcess">监听请求进度</button></div>
+  </div>
+</body>
+<script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.11/vue.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/element-ui/2.13.2/index.js"></script>
+<script type="text/javascript">
+  const app = new Vue({
+    el:'#app',
+    data:{
+      loading:false,
+      process:''
+    },
+    mounted(){
+
+    },
+    computed:{
+      uploadText(){
+        return `正在下载${(this.process * 100).toFixed(2)}%`
+      }
+    },
+    methods:{
+      downloadFile(){
+        window.open('/getFile');
+      },
+      downloadFile1(){
+        window.location.href = '/getFile1';
+      },
+      getProcess(){
+        // fetch('/getFile')
+        //   .then(res => res.text())
+        //   .then(res => {
+        //     console.log(res);
+        //   })
+        this.process = 0;
+        let xhr = new XMLHttpRequest();
+        xhr.open('GET', '/getFile', true);
+        xhr.addEventListener('progress', event => {
+          console.log('event: ', event);
+          // 响应头要有Content-Length
+          if (event.lengthComputable) {
+            let percentComplete = event.loaded / event.total;
+            this.process = percentComplete;
+            console.log(percentComplete); // 最后输出1
+            percentComplete === 1 && (this.loading = false);
+            this.$forceUpdate();
+          }
+        }, false);
+        xhr.send();
+        this.loading = true;
+      }
+    }
+  });
+</script>
+</html>
