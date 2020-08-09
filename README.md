@@ -31,6 +31,7 @@ keep going,shout up to every coder,respect!
 - [页面间通信](https://github.com/EmotionBin/variousDemo/tree/master/page-communication)
 - [图片压缩与图片下载](https://github.com/EmotionBin/variousDemo/tree/master/image-compress-download)
 - [图片放大镜](https://github.com/EmotionBin/variousDemo/tree/master/image-magnifier)
+- [文件下载与监听请求进度](https://github.com/EmotionBin/variousDemo/tree/master/file-download-progress)
 
 ## 小尾巴
 
