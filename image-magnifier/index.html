@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>image-magnifier</title>
+  <style>
+    *{
+      margin: 0;
+    }
+    .head{
+      text-align: center;
+    }
+    .warp{
+      display: flex;
+      justify-content: center;
+    }
+    .image-magnifier-wrap{
+      width: 800px;
+      font-size: 0;
+    }
+    .image-origin,
+    .image-magnifier{
+      display: inline-block;
+      width: 400px;
+      height: 300px;
+    }
+    .image-origin{
+      position: relative;
+      overflow: hidden;
+    }
+    .mask{
+      width: 100px;
+      height: 100px;
+      background-color: rgb(255, 165, 0, 0.5);
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
+    .origin,
+    .magnifier{
+      width: 100%;
+      height: 100%;
+    }
+    .origin,
+    .magnifier{
+      width: 400px;
+      height: 300px;
+      background-image: url(./images/background.jpg);
+      background-repeat: no-repeat;
+      background-size: 100% 100%;
+    }
+    .magnifier{
+      background-size: 1000px 800px;
+    }
+  </style>
+</head>
+<body>
+  <div class="head">
+    <h1>图片放大镜😎</h1>
+  </div>
+  <div class="warp">
+    <div class="image-magnifier-wrap">
+      <div class="image-origin" @mouseEnter="mouseEnter" @mouseLeave="mouseLeave" @mousemove="mouseMove">
+        <div class="origin"></div>
+        <div class="mask" v-show="isShow" :style="{left:`${position.left}px`,top:`${position.top}px`}"></div>
+      </div>
+      <div class="image-magnifier" v-show="isShow">
+        <div class="magnifier" :style="{backgroundPositionX:`${position.left * -2}px`,backgroundPositionY:`${position.top * -2}px`}"></div>
+      </div>
+    </div>
+  </div>
+</body>
+<script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.11/vue.js"></script>
+<script type="text/javascript">
+  const magnifier = new Vue({
+    el:'.image-magnifier-wrap',
+    data:{
+      isShow:false,
+      position:{
+        left:0,
+        top:0
+      }
+    },
+    mounted(){
+
+    },
+    computed:{
+
+    },
+    methods:{
+      // 鼠标进入
+      mouseEnter(){
+        this.isShow = true;
+      },
+      // 鼠标移出
+      mouseLeave(){
+        this.isShow = false;
+      },
+      // 鼠标移动
+      mouseMove(e){
+        const origin = document.querySelector('.image-origin');
+        console.log('origin: ', [origin]);
+        const { clientX, clientY } = e;
+        let x = clientX - origin.offsetLeft - 50;
+        let y = clientY - origin.offsetTop - 50;
+        if(x < 0) x = 0;
+        if(y < 0) y = 0;
+        if(x > 300) x = 300;
+        if(y > 200) y = 200;
+        this.position.left = x;
+        this.position.top = y;
+      }
+    }
+  });
+</script>
+</html>
