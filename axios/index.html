@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>axios</title>
+</head>
+<body>
+  <h1>axios</h1>
+</body>
+<script src="https://cdn.bootcdn.net/ajax/libs/qs/6.9.4/qs.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/axios/0.20.0-0/axios.js"></script>
+<script>
+  // 发送无参数的get请求 如果method字段不设置默认也是get请求
+  axios({
+    url:'getData',
+    method:'get'
+  }).then(res => {
+    console.log('无参数的get请求:',res.data);
+  });
+
+  // 发送带参数的get请求 使用params字段，传递一个对象，会在url上自动拼接
+  axios({
+    url:'getData',
+    method:'get',
+    params: {
+      data: 12345,
+      data1:54321
+    }
+  }).then(res => {
+    console.log('带参数的get请求:',res.data);
+  })
+
+  // 发送无参数的post请求
+  axios({
+    url:'getData',
+    method:'post'
+  }).then(res => {
+    console.log('无参数的post请求:',res.data);
+  })
+
+  // 发送带参数的post请求 application/json
+  // 注意axios默认的请求格式为application/json
+  // 需要后端设置接收json格式的参数
+  axios({
+    url:'getData',
+    method:'post',
+    data:{
+      data:111,
+      data1:222
+    }
+  }).then(res => {
+    console.log('带参数的post请求:',res.data);
+  })
+
+  // 发送带参数的post请求 x-www-form-urlencoded
+  // 需要利用Qs.stringify()传送x-www-form-urlencoded格式
+  // 需要后端设置接收x-www-form-urlencoded格式的参数
+  axios({
+    url:'getData',
+    method:'post',
+    data:Qs.stringify({
+      data:111,
+      data1:222
+    })
+  }).then(res => {
+    console.log('带参数的post请求:',res.data);
+  })
+
+  let formData = new FormData();
+  formData.append('data',111);
+  formData.append('data1',222);
+
+  // 发送带参数的post请求 multipart/form-data
+  // 需要后端设置接收multipart/form-data格式的参数
+  axios({
+    url:'http://localhost:9528/getData1',
+    method:'post',
+    data:formData
+  }).then(res => {
+    console.log('带参数的post请求:',res.data);
+  })
+
+  // 实例化axios
+  const myAxios = axios.create();
+  // 设置默认路径 方便拼接
+  myAxios.defaults.baseURL = 'http://localhost:9527';
+  myAxios.defaults.headers.common['Authorization'] = 'custom-token';
+
+  myAxios({
+    url:'getData',
+    method:'post',
+    data:Qs.stringify({
+      data:111,
+      data1:222
+    })
+  }).then(res => {
+    console.log('带参数的post请求:',res.data);
+  })
+
+  // 请求拦截器
+  myAxios.interceptors.request.use(
+    config => {
+      console.log('请求被拦截了!!!!!');
+      console.log('config.headers: ', config.headers);
+      // config.headers.common['X-Token'] = 'custom-token';
+      // config.headers['a'] = 'custom-token';
+      return config;
+    },
+    err => {
+      console.log(error); // for debug
+      return Promise.reject(error);
+    }
+  )
+
+  myAxios({
+    url:'getData',
+    method:'post',
+    data:Qs.stringify({
+      data:111,
+      data1:222
+    })
+  }).then(res => {
+    console.log('带参数的post请求:',res.data);
+  })
+</script>
+</html>
