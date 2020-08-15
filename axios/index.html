@@ -85,7 +85,7 @@
   const myAxios = axios.create();
   // 设置默认路径 方便拼接
   myAxios.defaults.baseURL = 'http://localhost:9527';
-  myAxios.defaults.headers.common['Authorization'] = 'custom-token';
+  // myAxios.defaults.headers.common['Authorization'] = 'custom-token';
 
   myAxios({
     url:'getData',
@@ -103,22 +103,49 @@
     config => {
       console.log('请求被拦截了!!!!!');
       console.log('config.headers: ', config.headers);
-      // config.headers.common['X-Token'] = 'custom-token';
-      // config.headers['a'] = 'custom-token';
+      config.headers.common['Authorization'] = 'custom-token';
+      config.headers.common['sessionToken'] = 'custom-token11111';
       return config;
     },
-    err => {
+    error => {
       console.log(error); // for debug
       return Promise.reject(error);
     }
   )
 
+  myAxios.interceptors.response.use(
+    response => {
+      console.log('response: ', response);
+      response.data = `响应被拦截了!!!${response.data}`;
+      // 如果不需要对除了data数据之外的其他数据进行处理，可以设置 return response.data;
+      return response;
+    },
+    error => {
+      console.log(error); // for debug
+      return Promise.reject(error);
+    }
+  )
+
+  // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+  // 注意这里有一个坑点，axios在跨域情况下，并且加入了自定义的请求头的时候，此时视为复杂请求，在复杂请求的情况下axios会先发送一个options预请求
+  // 需要后端处理options预请求，设置CORS，设置允许的请求头字段，设置允许请求的方法，对options请求给204或200状态码，否则会一直处于pending状态
+  myAxios({
+    url:'http://localhost:9528/getData1',
+    method:'post',
+    data:Qs.stringify({
+      data:1113333,
+      data1:2223333
+    })
+  }).then(res => {
+    console.log('带参数的post请求:',res.data);
+  })
+  
   myAxios({
     url:'getData',
     method:'post',
     data:Qs.stringify({
-      data:111,
-      data1:222
+      data:1113333,
+      data1:2223333
     })
   }).then(res => {
     console.log('带参数的post请求:',res.data);
