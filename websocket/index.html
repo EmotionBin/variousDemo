@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>cient</title>
+</head>
+<body>
+  <h1>Hello WebSocket</h1>
+</body>
+<script>
+  const str = '这里是客户端：';
+  const ws = new WebSocket('ws://localhost:9527');
+  ws.onopen = () => {
+    console.log(`${str}连接已经建立`);
+    // 向服务端发送数据
+    ws.send('Hello WebSocket!');
+  }
+
+  ws.onmessage = e => {
+    console.log(`${str}服务器返回的数据是 ${e.data}`);
+    //  ws.close();
+  }
+
+  ws.onclose = e => {
+    console.log(`${str}连接关闭`);
+  }
+</script>
+</html>
