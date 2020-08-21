@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>list-lazy-load</title>
+  <link href="https://cdn.bootcdn.net/ajax/libs/element-ui/2.13.2/theme-chalk/index.css" rel="stylesheet">
+  <style>
+    .wrap{
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+    .head{
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .box{
+      width: 300px;
+      height: 600px;
+      overflow: auto;
+    }
+    .checkbox{
+      position: absolute; 
+      top: 80px;
+    }
+    .input-box{
+      position: absolute;
+      top: 80px;
+      width: 200px;
+      left: 50%;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="head">
+      <h1>列表的懒加载，适合加载大数据量😎(3.0版本)</h1>
+    </div>
+    <div class="box">
+      <el-checkbox class="checkbox" v-model="isCheck" @change="selectAll">全选</el-checkbox>
+      <el-input class="input-box" v-model.trim="inputWord" placeholder="请输入内容" size="small" @input="changeInput"></el-input>
+      <el-tree :data="itemQueue" show-checkbox ref='tree' node-key='id'>
+      </el-tree>
+    </div>
+  </div>
+</body>
+<script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.11/vue.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/element-ui/2.13.2/index.js"></script>
+<script src="index.js"></script>
+</html>

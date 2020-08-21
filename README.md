@@ -27,6 +27,7 @@ keep going,shout up to every coder,respect!
 - [webpack](https://github.com/EmotionBin/variousDemo/tree/master/webpack)
 - [列表大数据懒加载](https://github.com/EmotionBin/variousDemo/tree/master/list-lazy-load)
 - [列表大数据懒加载v2](https://github.com/EmotionBin/variousDemo/tree/master/list-lazy-load-v2)
+- [列表大数据懒加载v3](https://github.com/EmotionBin/variousDemo/tree/master/list-lazy-load-v3)
 - [抽奖刮刮卡](https://github.com/EmotionBin/variousDemo/tree/master/luck-card)
 - [页面间通信](https://github.com/EmotionBin/variousDemo/tree/master/page-communication)
 - [图片压缩与图片下载](https://github.com/EmotionBin/variousDemo/tree/master/image-compress-download)
