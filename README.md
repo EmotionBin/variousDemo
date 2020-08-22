@@ -35,6 +35,7 @@ keep going,shout up to every coder,respect!
 - [文件下载与监听请求进度](https://github.com/EmotionBin/variousDemo/tree/master/file-download-progress)
 - [axios](https://github.com/EmotionBin/variousDemo/tree/master/axios)
 - [websocket](https://github.com/EmotionBin/variousDemo/tree/master/websocket)
+- [防抖节流](https://github.com/EmotionBin/variousDemo/tree/master/debounce-throttle)
 
 ## 小尾巴
 
