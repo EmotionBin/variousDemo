@@ -74,6 +74,10 @@ function throttle3(cb, wait){
  * @param {function} cb 
  * @param {number} wait 
  * @param {object} options
+ *  options 参数:
+ *  leading {boolean} 第一次是否触发 true-触发 false-不触发
+ *  trailing {boolean} 最后一次是否触发 true-触发 false-不触发
+ *  注意，leading 和 trailing 不能同时为 false
  */
 function throttle(cb, wait, options){
   let context, args, timer;
