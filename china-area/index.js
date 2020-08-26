@@ -81,6 +81,20 @@ function getAreaData(){
   })
 }
 
+// 根据编码向上递归
+function getAreaAllInfo(code) {
+  const data = CODE_TO_ALL[code];
+  // 测试用 找不到的行政区编码则默认上海市普陀区
+  if (!data) return ["310000", "310100", "310107"];
+  const info = [];
+  function recursion({ value, parent }) {
+    info.unshift(value);
+    parent && recursion(CODE_TO_ALL[parent]);
+  }
+  recursion(data);
+  return info;
+}
+
 new Vue({
   el:'#app',
   name:'app',
