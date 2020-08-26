@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>china-area</title>
+  <style>
+    *{
+      margin: 0;
+      letter-spacing: 2px;
+    }
+    .head{
+      text-align: center;
+    }
+    #app{
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  </style>
+  <link href="https://cdn.bootcdn.net/ajax/libs/element-ui/2.13.2/theme-chalk/index.css" rel="stylesheet">
+</head>
+<body>
+  <div class="head">
+    <h1>全国省市区县编码😎</h1>
+  </div>
+  <div id="app">
+    <el-cascader v-model="data" :options="regionData" :props="{ checkStrictly: true }"></el-cascader>
+    {{data}}
+  </div>
+</body>
+<script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.12/vue.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/element-ui/2.13.2/index.js"></script>
+<script src="index.js"></script>
+</html>
