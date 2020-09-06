@@ -31,3 +31,9 @@
 
 总结一下，**解决办法就是先让新节点不显示，等到它变为勾选状态后再显示即可**  
 
+## 一些其他的东西
+
+对于 Vue 项目的虚拟滚动长列表，有一些比较好用的第三方插件，比如 [vue-virtual-scroll-list](https://tangbc.github.io/vue-virtual-scroll-list)、[vue-virtual-scroller](https://github.com/Akryum/vue-virtual-scroller)  
+
+在做项目的时候可以直接使用它，非常方便而且好用，就不必我们自己写一些原生的东西了  
+
