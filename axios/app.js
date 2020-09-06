@@ -75,6 +75,14 @@ app1.post('/getData1', (req, res) => {
   res.send(str);
 });
 
+app1.post('/getData2', (req, res) => {
+  // fields为非文件项，files为文件项
+  const { fields,files } = req;
+  console.log('files: ', files);
+  res.header('Access-Control-Allow-Origin', '*');
+  res.send('我收到你上传的图片了');
+});
+
 app.listen(config.port,() => {
   console.log(`server is running on ${config.port} port!`);
 });

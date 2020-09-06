@@ -7,6 +7,8 @@
 </head>
 <body>
   <h1>axios</h1>
+  <div>这里可以选择图片并上传</div>
+  <input name="file" type="file" accept="image/png,image/gif,image/jpeg" @change="update"/>
 </body>
 <script src="https://cdn.bootcdn.net/ajax/libs/qs/6.9.4/qs.js"></script>
 <script src="https://cdn.bootcdn.net/ajax/libs/axios/0.20.0-0/axios.js"></script>
@@ -150,5 +152,22 @@
   }).then(res => {
     console.log('带参数的post请求:',res.data);
   })
+
+  // 上传图片文件 开始
+  document.querySelector('input').addEventListener('change', onFileChange);
+
+  function onFileChange(event) {
+    const file = event.target.files[0];
+    const formData1 = new FormData();
+    formData1.append('file', file);
+    myAxios({
+      url:'http://localhost:9528/getData2',
+      method:'post',
+      data:formData1
+    }).then(res => {
+      console.log('带参数的post请求:',res.data);
+    })
+  }
+  // 上传图片文件 结束
 </script>
 </html>
