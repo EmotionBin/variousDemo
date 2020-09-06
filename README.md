@@ -37,6 +37,7 @@ keep going,shout up to every coder,respect!
 - [websocket](https://github.com/EmotionBin/variousDemo/tree/master/websocket)
 - [防抖节流](https://github.com/EmotionBin/variousDemo/tree/master/debounce-throttle)
 - [全国省市区县](https://github.com/EmotionBin/variousDemo/tree/master/china-area)
+- [图片自动矫正旋转](https://github.com/EmotionBin/variousDemo/tree/master/image-auto-rotate)
 
 ## 小尾巴
 
