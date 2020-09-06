@@ -15,9 +15,22 @@
     #app{
       width: 100%;
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
     }
+    /* 行政区选择 点击label选择 开始 */
+    .label-check .el-cascader-panel .el-radio {
+      width: 100%;
+      height: 100%;
+      z-index: 10;
+      position: absolute;
+      right: 0;
+    }
+    .label-check .el-cascader-panel .el-radio__input {
+      visibility: hidden;
+    }
+    /* 行政区选择 点击label选择 结束 */
   </style>
   <link href="https://cdn.bootcdn.net/ajax/libs/element-ui/2.13.2/theme-chalk/index.css" rel="stylesheet">
 </head>
@@ -26,8 +39,16 @@
     <h1>全国省市区县编码😎</h1>
   </div>
   <div id="app">
-    <el-cascader v-model="data" :options="regionData" :props="{ checkStrictly: true }"></el-cascader>
-    {{data}}
+    <div class="radio-check-wrap">
+      <span>点击单选框选中</span>
+      <el-cascader v-model="data" :options="regionData" :props="{ checkStrictly: true }"></el-cascader>
+      {{data}}
+    </div>
+    <div class="label-check-wrap">
+      <span>点击文字选中</span>
+      <el-cascader popper-class="label-check" v-model="data1" :options="regionData" :props="{ checkStrictly: true }"></el-cascader>
+      {{data1}}
+    </div>
   </div>
 </body>
 <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.12/vue.js"></script>

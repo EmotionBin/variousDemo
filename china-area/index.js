@@ -100,6 +100,7 @@ new Vue({
   name:'app',
   data:{
     data:[],
+    data1:[],
     regionData
   }
 })
