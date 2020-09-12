@@ -38,6 +38,7 @@ keep going,shout up to every coder,respect!
 - [防抖节流](https://github.com/EmotionBin/variousDemo/tree/master/debounce-throttle)
 - [全国省市区县](https://github.com/EmotionBin/variousDemo/tree/master/china-area)
 - [图片自动矫正旋转](https://github.com/EmotionBin/variousDemo/tree/master/image-auto-rotate)
+- [rem 布局](https://github.com/EmotionBin/variousDemo/tree/master/rem-layout)
 
 ## 小尾巴
 
