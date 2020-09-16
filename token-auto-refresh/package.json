@@ -1,0 +1,15 @@
+{
+  "name": "token-auto-refresh",
+  "version": "1.0.0",
+  "description": "前端每次请求都在请求头中带上 token，后端校验 token，如果 token 过期，对于活跃用户自动续期，并且不改变当前 token 值",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
