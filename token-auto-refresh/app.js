@@ -9,55 +9,71 @@ const config = {
 
 app.use(express.static(__dirname));
 
-// 唯一字符串 用于获取 token 与校验 token
-let uniqueString = '';
-// token映射
-TOKEN_MAP = {};
+// 用户名与 hash 值映射集合
+USER_HASH_MAP = {};
+// hash 值与 token 映射集合
+HASH_TOKEN_MAP = {};
 
 // 获取一个唯一的字符串
 function createUniqueString() {
-  const timestamp = +new Date() + ''
-  const randomNum = parseInt((1 + Math.random()) * 65536) + ''
-  return (+(randomNum + timestamp)).toString(32)
+  const timestamp = +new Date() + '';
+  const randomNum = parseInt((1 + Math.random()) * 65536) + '';
+  return (+(randomNum + timestamp)).toString(32);
+}
+
+// 获取 hash 值
+function getHash() {
+  return `${createUniqueString()}-${createUniqueString()}-${createUniqueString()}-${createUniqueString()}`
 }
 
 /**
- * 生成 token
- * @param {boolean} flag 是否需要设置时间
+ * 获取 token
+ * @param {string} key 
  */
-function getToken(flag) {
+function getToken(key) {
   const payload = {
     name: 'token-auto-refresh demo'
   };
-  const options = flag ? { expiresIn: 60 } : {};
-  return jwt.sign(payload, uniqueString, options); // 缓存 token 过期时间 60s
+  return jwt.sign(payload, key, { expiresIn: 60 }); // 缓存 token 过期时间 60s
 }
 
 // 生成 token，相当于登录
 app.get('/getToken', (req, res) => {
-  uniqueString = createUniqueString();
-  const token = getToken(false); // token 永久有效
-  console.log('token: ', token);
-  const cacheToken = getToken(true); // 缓存 token 过期时间 60s
-  console.log('cacheToken: ', cacheToken);
+  // 登录的时候传递过来的用户名
+  const { username } = req.headers;
+  // 先看看集合中有没有
+  console.log('USER_HASH_MAP: ', USER_HASH_MAP);
+  console.log('HASH_TOKEN_MAP: ', HASH_TOKEN_MAP);
+  const hash = USER_HASH_MAP[username];
+  if(hash){
+    // 如果存在映射关系 全部清空 因为 token 已经重新生成
+    delete HASH_TOKEN_MAP[hash];
+    delete USER_HASH_MAP[username];
+  }
+  const uniqueString = getHash(); // 这里的 uniqueString 只是一个映射
   // 记录映射关系
-  TOKEN_MAP[token] = cacheToken;
-  res.send(token);
+  USER_HASH_MAP[username] = uniqueString;
+  HASH_TOKEN_MAP[uniqueString] = getToken(uniqueString);
+  res.send(uniqueString);
 });
 
 // 验证 token，相当于携带 token 发送请求
 app.get('/verifyToken', (req, res) => {
-  const { token } = req.headers;
+  const hash = req.headers.token;
+  // 根据 hash 值查到真正的 token
+  const token = HASH_TOKEN_MAP[hash];
   console.log('token: ', token);
-  console.log('TOKEN_MAP[token]: ', TOKEN_MAP[token]);
-  jwt.verify(TOKEN_MAP[token], uniqueString, (err, decoded) => {
+  console.log('HASH_TOKEN_MAP: ', HASH_TOKEN_MAP);
+  jwt.verify(token, hash, (err, decoded) => {
     if(err){
-      console.log(err);
-      res.send(true);
+      // token 验证失败
+      console.log(err, 'token验证失败');
+      return res.send(true);
     }
     console.log(decoded.exp, Math.floor(+ new Date() / 1000));
     // token 校验通过刷新 token
-    TOKEN_MAP[token] = getToken(true);
+    HASH_TOKEN_MAP[hash] = getToken(hash);
+    console.log('HASH_TOKEN_MAP[hash]: ', HASH_TOKEN_MAP[hash]);
     res.send(false);
   });
 });
