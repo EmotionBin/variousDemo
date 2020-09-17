@@ -29,6 +29,7 @@
     </div>
     <div>window.open()的方式<button @click="downloadFile">点击下载</button></div>
     <div>window.location.href的方式<button @click="downloadFile1">点击下载</button></div>
+    <div>ajax + blob + a 标签的方式<button @click="downloadFile2">点击下载</button></div>
     <div>监听请求进度<button @click="getProcess">监听请求进度</button></div>
   </div>
 </body>
@@ -55,6 +56,23 @@
       },
       downloadFile1(){
         window.location.href = '/getFile1';
+      },
+      downloadFile2(){
+        fetch('/getFile')
+          .then(response => response.blob())
+          .then(blob => {
+            console.log('blob: ', blob);
+            const imgType = blob.type.split('/')[1];
+            const objectURL = URL.createObjectURL(blob);
+            console.log('objectURL: ', objectURL);
+            const a = document.createElement('a');
+            a.href = objectURL;
+            a.download = `file.${imgType}`;
+            // 触发a链接点击事件，浏览器开始下载文件
+            a.click();
+            // 记得清除，否则blob会一直在内存中无法释放，造成内存泄漏
+            window.URL.revokeObjectURL(objectURL);
+          });
       },
       getProcess(){
         // fetch('/getFile')

@@ -117,7 +117,7 @@
           });
         }
       },
-      // 通过fetch下载图片 fetch自带了
+      // 通过fetch下载图片 fetch自带了转换为 blob 的方法 blob()
       downloadImgByFetch(){
         fetch(this.imgUrl)
           .then(response => response.blob())
