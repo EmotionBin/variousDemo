@@ -5,8 +5,25 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>token-auto-refresh</title>
 </head>
+<style>
+  * {
+    margin: 0;
+  }
+  .head {
+    text-align: center;
+  }
+</style>
 <body>
-  <h1>token auto refresh</h1>
+  <div class="head">
+    <h1>token过期自动刷新😎</h1>
+  </div>
+  <div id="app">
+    <h1>token auto refresh</h1>
+    <h3>当前token:</h3><span>{{token}}</span>
+    <h3>token是否过期：{{isExpire}}</h3>
+    <button @click="verifyToken">验证 token</button>
+  </div>
 </body>
+<script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.11/vue.js"></script>
 <script src="index.js"></script>
 </html>

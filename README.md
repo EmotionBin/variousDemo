@@ -40,6 +40,7 @@ keep going,shout up to every coder,respect!
 - [图片自动矫正旋转](https://github.com/EmotionBin/variousDemo/tree/master/image-auto-rotate)
 - [rem 布局](https://github.com/EmotionBin/variousDemo/tree/master/rem-layout)
 - [nodejs 爬虫](https://github.com/EmotionBin/variousDemo/tree/master/nodejs-python)
+- [token 过期自动刷新](https://github.com/EmotionBin/variousDemo/tree/master/token-auto-refresh)
 
 ## 小尾巴
 
