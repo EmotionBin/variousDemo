@@ -28,7 +28,7 @@ function getHash() {
 
 /**
  * 获取 token
- * @param {string} key 
+ * @param {string} key 生成 token 的秘钥
  */
 function getToken(key) {
   const payload = {
@@ -46,7 +46,7 @@ app.get('/getToken', (req, res) => {
   console.log('HASH_TOKEN_MAP: ', HASH_TOKEN_MAP);
   const hash = USER_HASH_MAP[username];
   if(hash){
-    // 如果存在映射关系 全部清空 因为 token 已经重新生成
+    // 如果存在映射关系 全部清空 因为 token 需要重新生成
     delete HASH_TOKEN_MAP[hash];
     delete USER_HASH_MAP[username];
   }
