@@ -1,5 +1,7 @@
 # token 自动刷新
 
+这里使用了一个第三方库，具体可以看这里 [jsonwebtoken](https://github.com/auth0/node-jsonwebtoken)  
+
 token 常用于身份校验，用户登录后，后端生成 token 返回给前端，前端存储，**这里假设前端每次请求都会带上 token，没有判断未携带 token的情况**，主要实现两个功能：  
 
 1. token 自动刷新，对于活跃用户，每次请求 token 校验通过后自动刷新 token，延长过期时间，并且前端存储的 token 不变

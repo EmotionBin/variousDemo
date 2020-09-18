@@ -1,5 +1,5 @@
 const express = require('express');
-const jwt = require('jsonwebtoken');
+const jwt = require('jsonwebtoken'); // https://github.com/auth0/node-jsonwebtoken
 
 const app = express();
 
@@ -10,9 +10,9 @@ const config = {
 app.use(express.static(__dirname));
 
 // 用户名与 hash 值映射集合
-USER_HASH_MAP = {};
+const USER_HASH_MAP = {};
 // hash 值与 token 映射集合
-HASH_TOKEN_MAP = {};
+const HASH_TOKEN_MAP = {};
 
 // 获取一个唯一的字符串
 function createUniqueString() {
