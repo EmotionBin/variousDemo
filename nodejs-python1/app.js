@@ -26,7 +26,7 @@ async function getWebData(){
     // 获取要爬取的页面的网页源代码 需要分析结构
     const { data } = await axios.get('https://www.mzitu.com');
     const $ = cheerio.load(data);
-    const list = $('#pins a');
+    const list = $('#pins > li > a');
     for (let i = 0; i < list.length;i ++){
       // 拿到 index.html 中 a 标签指向的地址 
       const pageAddress = $(list[i]).attr('href');
