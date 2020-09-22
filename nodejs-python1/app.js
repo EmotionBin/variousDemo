@@ -9,23 +9,37 @@ axios.defaults.headers.common['referer'] = 'https://www.mzitu.com';
 axios.defaults.headers.common['user-agent'] = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.102 Safari/537.36';
 
 /**
- * 每次爬取资源的时间间隔 timer 建议 1000 即为一秒爬取一次资源，频率太高会被封禁 ip
+ * 每次爬取资源的时间间隔 timer 建议 1 即为 1s-2s 之间随机时间爬取资源，频率太高会被封禁 ip
  */
-const timer = 1000;
-getWebData();
+const timer = 1;
+
+start();
+
+async function start() {
+  console.log('开始爬取资源');
+  await getWebData();
+  console.log('所有资源获取完毕!!!');
+}
 
 async function getWebData(){
   try {
     // 获取要爬取的页面的网页源代码 需要分析结构
     const { data } = await axios.get('https://www.mzitu.com');
     const $ = cheerio.load(data);
-    $('#pins a').each((i, ele) => {
-      if(i > 0) return;
+    const list = $('#pins a');
+    for (let i = 0; i < list.length;i ++){
       // 拿到 index.html 中 a 标签指向的地址 
-      const pageAddress = $(ele).attr('href');
+      const pageAddress = $(list[i]).attr('href');
       // 获取每个页面中的图片资源
-      getImgCount(pageAddress);
-    })
+      await getImgCount(pageAddress);
+    }
+    // $('#pins a').each((i, ele) => {
+    //   if(i > 4) return;
+    //   // 拿到 index.html 中 a 标签指向的地址 
+    //   const pageAddress = $(ele).attr('href');
+    //   // 获取每个页面中的图片资源
+    //   await getImgCount(pageAddress);
+    // })
   } catch (error) {
     console.log('error: ', error);
   }
@@ -81,7 +95,7 @@ async function getImgData(address, page){
       console.log(`图片${address}获取完毕`);
       setTimeout(() => {
         resolve();
-      }, timer);
+      }, getRandomNumber(timer));
     } catch (error) {
       console.log('error: ', error);
       reject();
@@ -89,4 +103,7 @@ async function getImgData(address, page){
   })
 }
 
-
+// 随机数爬取资源
+function getRandomNumber(timer){
+  return (Math.random() + timer) * 1000;
+}
