@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>live-video</title>
+</head>
+<style>
+  * {
+    margin: 0;
+  }
+  .head {
+    text-align: center;
+  }
+  .video-wrap{
+    width: 600px;
+    height: 400px;
+  }
+</style>
+<body>
+  <div class="head">
+    <h1>实时视频直播😎</h1>
+  </div>
+  <div id="app">
+      <!-- 本地直播  -->
+      <h1>本地直播</h1>
+      <div id="local" class="video-wrap"></div>
+      <!-- 远程直播 -->
+      <h1>远程直播</h1>
+      <div id="remote" class="video-wrap"></div>
+  </div>
+</body>
+<script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.11/vue.js"></script>
+<script src="./lib/trtc.js"></script>
+<script src="./lib/lib-generate-test-usersig.min.js"></script>
+<script src="index.js"></script>
+</html>
