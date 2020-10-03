@@ -42,7 +42,7 @@ keep going,shout up to every coder,respect!
 - [nodejs 爬虫](https://github.com/EmotionBin/variousDemo/tree/master/nodejs-python)
 - [nodejs 爬虫-1](https://github.com/EmotionBin/variousDemo/tree/master/nodejs-python1)
 - [token 过期自动刷新](https://github.com/EmotionBin/variousDemo/tree/master/token-auto-refresh)
-- [实时视频直播](https://github.com/EmotionBin/variousDemo/tree/master/live-video)
+- [实时视频直播](https://github.com/EmotionBin/variousDemo/tree/master/live-video)1
 
 ## 小尾巴
 
