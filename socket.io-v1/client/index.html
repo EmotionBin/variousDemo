@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<style>
+  * {
+    margin: 0;
+  }
+  .head {
+    text-align: center;
+  }
+  .video-wrap{
+    width: 600px;
+    height: 400px;
+  }
+  #app{
+    display: flex;
+  }
+  .info-wrap,
+  .input-wrap{
+    flex: 1;
+  }
+</style>
+<body>
+  <div class="head">
+    <h1>socket.io实现实时聊天😎</h1>
+  </div>
+  <div id="app">
+    <div class="info-wrap">
+      <h3>信息列表</h3>
+      <template v-for="(item, index) in messageList">
+        <div class="list-wrap">
+          <div class="data">{{item.data}}</div>
+        </div>
+      </template>
+    </div>
+    <div class="input-wrap">
+      <h3>输入信息</h3>
+      <input type="text" v-model="inputValue">
+      <button @click="send">提交</button>
+    </div>
+  </div>
+</body>
+<script src="https://unpkg.com/socket.io-client@2.3.0/dist/socket.io.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.11/vue.js"></script>
+<script src="./src/index.js"></script>
+</html>

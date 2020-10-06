@@ -44,6 +44,7 @@ keep going,shout up to every coder,respect!
 - [token 过期自动刷新](https://github.com/EmotionBin/variousDemo/tree/master/token-auto-refresh)
 - [实时视频直播](https://github.com/EmotionBin/variousDemo/tree/master/live-video)
 - [vue 原理](https://github.com/EmotionBin/variousDemo/tree/master/vue-principle)
+- [socket.io-v1](https://github.com/EmotionBin/variousDemo/tree/master/socket.io-v1)
 
 ## 小尾巴
 
