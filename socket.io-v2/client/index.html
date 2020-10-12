@@ -19,6 +19,12 @@
   #app{
     display: flex;
   }
+  .number{
+    position: absolute;
+    top: 0;
+    right: 0;
+    color: blue;
+  }
   .info-wrap,
   .input-wrap{
     flex: 1;
@@ -29,6 +35,7 @@
     <h1>socket.io实现实时聊天😎</h1>
   </div>
   <div id="app">
+    <div class="number">在线 {{member}} 人</div>
     <div class="info-wrap">
       <h3>信息列表</h3>
       <template v-for="(item, index) in messageList">
@@ -38,6 +45,9 @@
       </template>
     </div>
     <div class="input-wrap">
+      <h3>输入你的名字</h3>
+      <input type="text" v-model="name">
+      <button v-show="!isJoin" @click="join">加入聊天</button>
       <h3>输入信息</h3>
       <input type="text" v-model="inputValue">
       <button @click="send">提交</button>

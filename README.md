@@ -45,6 +45,7 @@ keep going,shout up to every coder,respect!
 - [实时视频直播](https://github.com/EmotionBin/variousDemo/tree/master/live-video)
 - [vue 原理](https://github.com/EmotionBin/variousDemo/tree/master/vue-principle)
 - [socket.io-v1](https://github.com/EmotionBin/variousDemo/tree/master/socket.io-v1)
+- [socket.io-v2](https://github.com/EmotionBin/variousDemo/tree/master/socket.io-v2)
 
 ## 小尾巴
 
