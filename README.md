@@ -46,6 +46,7 @@ keep going,shout up to every coder,respect!
 - [vue 原理](https://github.com/EmotionBin/variousDemo/tree/master/vue-principle)
 - [socket.io-v1](https://github.com/EmotionBin/variousDemo/tree/master/socket.io-v1)
 - [socket.io-v2](https://github.com/EmotionBin/variousDemo/tree/master/socket.io-v2)
+- [主题颜色更改](https://github.com/EmotionBin/variousDemo/tree/master/theme-color-change)
 
 ## 小尾巴
 
