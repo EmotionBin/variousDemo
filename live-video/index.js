@@ -1,6 +1,6 @@
 // 这里是调用腾讯云API必填的APPID和SECRET
-const SKDAPPID = 1400433811;
-const SECRETKEY = '75746f6d26371906ff8953040d86474b7c77d3701e7aa405b33b755a8d527f65';
+const SKDAPPID = 666666666;
+const SECRETKEY = '上腾讯云填自己的字段值，因为需要收费的';
 
 // 获取一个唯一的字符串
 function createUniqueString() {
