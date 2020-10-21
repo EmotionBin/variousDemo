@@ -47,6 +47,7 @@ keep going,shout up to every coder,respect!
 - [socket.io-v1](https://github.com/EmotionBin/variousDemo/tree/master/socket.io-v1)
 - [socket.io-v2](https://github.com/EmotionBin/variousDemo/tree/master/socket.io-v2)
 - [主题颜色更改](https://github.com/EmotionBin/variousDemo/tree/master/theme-color-change)
+- [第三方登录](https://github.com/EmotionBin/variousDemo/tree/master/third-party-login)
 
 ## 小尾巴
 
