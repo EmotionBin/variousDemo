@@ -1,0 +1,15 @@
+{
+  "name": "third-party-login",
+  "version": "1.0.0",
+  "description": "这里实现一些第三方登录的功能，比如 QQ 登录，微信登录，github 登录等",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}

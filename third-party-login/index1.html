@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>third-party-login</title>
+  <style>
+    * {
+      margin: 0;
+    }
+    #app {
+      width: 100%;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <div class="user-wrap">
+      <input type="text" v-model="username">
+    </div>
+    <div class="psw-wrap">
+      <input type="text" v-model="password">
+    </div>
+    <div class="btn-wrap">
+      <button @click="login">登录</button>
+    </div>
+  </div>
+</body>
+<script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.11/vue.js"></script>
+<script src="src/index1.js"></script>
+</html>
