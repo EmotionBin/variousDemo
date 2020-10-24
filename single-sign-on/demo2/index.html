@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>single-sign-on</title>
+  <style>
+    * {
+      margin: 0;
+    }
+    .head {
+      text-align: center;
+    }
+    #app {
+      width: 100%;
+      height: 600px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="head">
+    <h1>单点登录😎</h1>
+  </div>
+  <div id="app">
+    <template v-if="!isLogin">
+      <!-- <div class="user-wrap">
+        <input type="text" v-model="username">
+      </div>
+      <div class="psw-wrap">
+        <input type="text" v-model="password">
+      </div>
+      <div class="btn-wrap">
+        <button @click="login">登录</button>
+      </div> -->
+    </template>
+    <template v-else>
+      <h1>登陆成功!用户名为{{username}}，密码为{{password}}</h1>
+    </template>
+  </div>
+</body>
+<script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.11/vue.js"></script>
+<script src="index.js"></script>
+</html>

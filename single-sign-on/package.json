@@ -1,0 +1,16 @@
+{
+  "name": "single-sign-on",
+  "version": "1.0.0",
+  "description": "单点登录即 Single Sign On，简称 **SSO**，简单来说，单点登录就是**在多个系统中，用户只需一次登录，各个系统即可感知该用户已经登录**",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cookie-parser": "^1.4.5",
+    "express": "^4.17.1"
+  }
+}
