@@ -7,18 +7,12 @@ new Vue({
     isLogin:false
   },
   created() {
-    this.isLoin();
+    this.init();
   },
   methods: {
-    // 判断是否登录 若没登陆 跳转至 SSO 登录页面 登录则请求用户信息
-    isLoin(){
-      const code = window.location.search.substr(1).split('=')[1];
-      if(!code){
-        window.location.href = `/sso.html?redirect_uri=${window.encodeURIComponent(window.location.href)}`;
-      }else{
-        // 验证 code 是否有效
-        this.getUserInfo(code);
-      }
+    // 初始化
+    init(){
+      window.addEventListener('message', data => this.getUserInfo(data.data), false);
     },
     // 登录
     login(){
@@ -26,6 +20,7 @@ new Vue({
         .then(res => res.json())
         .then(res => {
           res.status && (this.isLogin = true);
+          document.querySelector('#testIframe').contentWindow.postMessage(res.code, '*');
         })
     },
     // 尝试获取用户信息 有则直接登录
@@ -37,8 +32,6 @@ new Vue({
             this.username = res.data.username;
             this.password = res.data.password;
             this.isLogin = true;
-          }else{
-            alert(res.detail);
           }
         })
     }
