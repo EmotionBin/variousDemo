@@ -4,7 +4,7 @@
 
 这里会演示三个版本的单点登录 demo  
 
-1. 同域名下的单点登录(域名一致，端口跨域不一致)
+1. 同域名下的单点登录(域名一致，端口可以不一致)
 2. 不同域名下的单点登录(借助 SSO 登录系统)
 3. 不同域名下的单点登录(借助 iframe 实现 localStorage 跨域共享)
 
@@ -30,7 +30,7 @@
 
 打开后随便任意一个网站中输入账号密码，点击登录显示登陆成功，然后刷新另外一个网站，同时也会登录成功  
 
-实现原理：其实这里还有第三个页面 `http://localhost:9529/sso.html`，这个页面以 iframe 的方式被嵌入 index.html 中，但是**是不会在页面中显示的**。在任意一个页面中登录成功后则会拿到 uuid，利用 postMessage 向嵌入的 iframe(sso.html) 页面发送信息，把 uuid 传过去，iframe 收到 uuid 后将 uuid 写入自己域内的 localStorage，刷新另一个页面，因为另一个页面中也嵌入了这个 iframe，iframe 加载完毕后，会向父页面发送 uuid，这个页面接收到 uuid 后，向后端请求用户信息，登录成功  
+实现原理：其实这里还有第三个页面 `http://localhost:9529/sso.html`，这个页面以 iframe 的方式被嵌入 index.html 中，但是**是不会在页面中显示的**。在任意一个页面中登录成功后则会拿到 uuid，利用 postMessage 向嵌入的 iframe(sso.html) 页面发送信息，把 uuid 传过去，**iframe 收到 uuid 后将 uuid 写入自己域内的 localStorage**，刷新另一个页面，因为另一个页面中也嵌入了这个 iframe，iframe 加载完毕后，会向父页面发送 uuid，这个页面接收到 uuid 后，向后端请求用户信息，登录成功  
 
 ## 总结
 
@@ -38,7 +38,7 @@
 2. 不同域名下的单点登录借助 SSO 登录，SSO 页面登录成功后带着参数返回原来的页面，原来的页面拿着参数到后端请求数据
 3. 不同域名下的单点登录借助 iframe 实现 localStorage 跨域通信，比如淘宝和天猫单点登录，因为淘宝和天猫都嵌入了同一个 iframe，借助这个 iframe 与 postMessage 实现跨域
 
-我发现有一篇文章写的很好，可以看看 [传送门](https://www.jianshu.com/p/75edcc05acfd)  
+有一篇文章写的很好，可以看看 [传送门](https://www.jianshu.com/p/75edcc05acfd)  
 
 
 
