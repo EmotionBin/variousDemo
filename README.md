@@ -49,6 +49,7 @@ keep going,shout up to every coder,respect!
 - [主题颜色更改](https://github.com/EmotionBin/variousDemo/tree/master/theme-color-change)
 - [第三方登录](https://github.com/EmotionBin/variousDemo/tree/master/third-party-login)
 - [单点登录](https://github.com/EmotionBin/variousDemo/tree/master/single-sign-on)
+- [验证码](https://github.com/EmotionBin/variousDemo/tree/master/verification-code)
 
 ## 小尾巴
 
