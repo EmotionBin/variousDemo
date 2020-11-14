@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>custom-cursor</title>
+  <style>
+    * {
+      margin: 0;
+    }
+    html{
+      cursor:url(cursor.ico),auto;
+    }
+    .head {
+      text-align: center;
+    }
+    #app{
+      height: 200px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: pink;
+      cursor:url(cursor1.ico),auto;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="head">
+    <h1>光标自定义图标😎</h1>
+  </div>
+  <div id="app">
+    <h2>把鼠标移动到这里可以更换图标</h2>
+  </div>
+</body>
+</html>

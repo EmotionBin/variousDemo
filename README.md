@@ -50,6 +50,7 @@ keep going,shout up to every coder,respect!
 - [第三方登录](https://github.com/EmotionBin/variousDemo/tree/master/third-party-login)
 - [单点登录](https://github.com/EmotionBin/variousDemo/tree/master/single-sign-on)
 - [验证码](https://github.com/EmotionBin/variousDemo/tree/master/verification-code)
+- [鼠标自定义图标](https://github.com/EmotionBin/variousDemo/tree/master/custom-cursor)
 
 ## 小尾巴
 
