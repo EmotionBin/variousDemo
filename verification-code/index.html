@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>verification-code</title>
+  <style>
+    * {
+      margin: 0;
+    }
+    .head {
+      text-align: center;
+    }
+    .demo{
+      margin-bottom: 20px;
+    }
+    .code-wrap{
+      display: flex;
+      align-items: center;
+    }
+    .code-image{
+      cursor: pointer;
+    }
+    #container{
+      margin: 0 !important;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="head">
+    <h1>验证码😎</h1>
+  </div>
+  <div id="app">
+    <template v-for="(item, index) in config">
+      <div class="demo" :key="item.type">
+        <h3>{{item.title}}</h3>
+        <template v-if="item.type === 3">
+          <div id="container" ref="slider"></div>
+        </template>
+        <template v-else>
+          <div class="code-wrap">
+            <div class="input-wrap">
+              <input type="text" v-model="item.value" maxlength="4">
+            </div>
+            <div class="code-image">
+              <img :src="item.image" title="看不清楚？点击换一张" @click="getCode(item.type)">
+            </div>
+            <div class="btn-wrap">
+              <button @click="checkCode(item.type)">提交</button>
+            </div>
+          </div>
+        </template>
+      </div>
+    </template>
+  </div>
+</body>
+<script src="./libs/jigsaw.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.11/vue.js"></script>
+<script src="index.js"></script>
+</html>

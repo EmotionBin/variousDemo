@@ -1,0 +1,16 @@
+{
+  "name": "verification-code",
+  "version": "1.0.0",
+  "description": "1. base64 / svg 验证码\r 2. 滑块验证码\r 3. 点击指定图片的验证码\r 4. 问题验证码，如 8 + 5 = ?",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "svg-captcha": "^1.4.0"
+  }
+}
