@@ -22,10 +22,6 @@ new Vue({
     // 提交信息
     send(){
       if(!this.inputValue) return;
-      this.messageList.push({
-        id:+new Date(),
-        data:this.inputValue
-      })
       // 发送信息
       socket.emit('message', this.inputValue);
     },

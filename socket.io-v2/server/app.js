@@ -22,7 +22,7 @@ io.on('connection', (socket) => {
   socket.on('message', data => {
     console.log(data);
     // 广播信息 事件名称可以自定义 保持一致即可
-    socket.broadcast.emit('broadcast', data);
+    io.emit('broadcast', data);
   })
 
   // 有用户加入群聊
@@ -31,9 +31,7 @@ io.on('connection', (socket) => {
     socketList[name] = socket.id;
     member ++;
     // 有人加入群聊则发送广播
-    socket.broadcast.emit('welcome', name, member);
-    // 注意 广播的时候自己是接收不到的 所以要再发送一次 让自己接收
-    socket.emit('welcome', name, member);
+    io.emit('welcome', name, member);
   })
 
   // 用户离开

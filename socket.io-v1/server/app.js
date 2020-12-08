@@ -19,6 +19,6 @@ io.on('connection', (socket) => {
   socket.on('message', data => {
     console.log(data);
     // 广播信息 事件名称可以自定义 保持一致即可
-    socket.broadcast.emit('broadcast', data);
+    io.emit('broadcast', data);
   })
 });
