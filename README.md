@@ -51,6 +51,7 @@ keep going,shout up to every coder,respect!
 - [单点登录](https://github.com/EmotionBin/variousDemo/tree/master/single-sign-on)
 - [验证码](https://github.com/EmotionBin/variousDemo/tree/master/verification-code)
 - [鼠标自定义图标](https://github.com/EmotionBin/variousDemo/tree/master/custom-cursor)
+- [Web Worker](https://github.com/EmotionBin/variousDemo/tree/master/web-worker)
 
 ## 小尾巴
 
