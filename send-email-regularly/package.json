@@ -1,0 +1,17 @@
+{
+  "name": "send-email-regularly",
+  "version": "1.0.0",
+  "description": "定时发送邮件，参考这篇文章 [传送门](https://mp.weixin.qq.com/s/pRJ5_tb_2fsecK-zKKgD8Q)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.21.1",
+    "node-schedule": "^1.3.2",
+    "nodemailer": "^6.4.17"
+  }
+}

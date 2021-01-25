@@ -53,6 +53,7 @@ keep going,shout up to every coder,respect!
 - [鼠标自定义图标](https://github.com/EmotionBin/variousDemo/tree/master/custom-cursor)
 - [Web Worker](https://github.com/EmotionBin/variousDemo/tree/master/web-worker)
 - [Service Worker](https://github.com/EmotionBin/variousDemo/tree/master/service-worker)
+- [定时自动发送邮件](https://github.com/EmotionBin/variousDemo/tree/master/send-email-regularly)
 
 ## 小尾巴
 
